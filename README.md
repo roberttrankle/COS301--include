@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/roberttrankle/COS301--include.png?label=ready&title=Ready)](https://waffle.io/roberttrankle/COS301--include?utm_source=badge)
 # COS301-#include
 ## COS 301 team - for CGIS Map Production system
 ### Welcome to #include Github repository! Our team is dedicated to doing our best in all spheres.
