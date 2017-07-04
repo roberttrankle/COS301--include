@@ -5,7 +5,7 @@ Linux Setup:
 	Put .shp and .shx files in /usr/share/geoserver-2.11.1/data_dir/data/shapefiles
 	Create workspace,store,add layers,publish layers (follow guide of youtube video "HOW TO WORK IN GEOSERVER" by dhantotiam7)
 4.Setup Jetty(Server coming with Geoserver)
-	Download jetty-servelets.jar and jetty_util.jar
+	Download jetty-servelets.jar and jetty_util.jar (by downloading the whole jetty from the eclipse website)
 	Put those files in /usr/share/geoserver-2.11.1/webapps/geoserver/WEB-INF/lib
 	Add code from http://www.dynamicsax.co.in/2015/04/how-to-enable-cross-origin-resource.html to /usr/share/geoserver-2.11.1/webapps/geoserver/WEB-INF/web.xml (put just above </web-app>)
 5.Run main.html
