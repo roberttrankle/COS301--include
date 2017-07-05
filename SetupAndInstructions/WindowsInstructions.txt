@@ -1,8 +1,14 @@
 After installing GeoServer on Windows 
 
+0)	Add ALL shared files/data on dropbox (that Ms Victoria sent us) to 
+	C:\Program Files (x86)\GeoServer 2.11.1\data_dir\data\shapefiles
+	(Make sure to have the .dbf file... i had trouble dwnloading all of the files from dropbox)
+	
 1)	Add/Setup new Workspace, Store and publish relevant layers (wards, households) in GeoServer http://localhost:8080/geoserver/ 
 	(see Youtube video --> https://www.youtube.com/watch?v=G-d--tD5lVE&t=387s)
+	
 2)	Add jetty-servlets-9.4.6.v20170531 & jetty-util-9.4.6.v20170531 to C:\Program Files (x86)\GeoServer 2.11.1\lib
+
 3)	Add appropriate CORS Filter(s) (see below) to C:\Program Files (x86)\GeoServer 2.11.1\webapps\geoserver\WEB-INF\web.xml file
 	
 	<filter>
