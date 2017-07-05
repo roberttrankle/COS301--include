@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="proto.css">
+	<link rel="stylesheet" href="BootSideMenu-master/css/BootSideMenu.css">
+	<script src="BootSideMenu-master/js/BootSideMenu.js"></script>
+
+	<title>CGIS Map Production</title>
+	</head>
+<body>
+	<div class="container-fluid">
+	  
+	  <div class="row" style="border-bottom:1px solid white">
+		<div class="col-md-8"><h1>CGIS Map Production</h1></div>
+		<div class="col-md-4">
+			<form class="form-inline" style="padding-top: 25px">
+				<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				  <input id="usr" type="text" class="form-control" name="username" placeholder="Username">
+				</div>
+				<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+				  <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+				</div>
+				<button type="submit" class="btn btn-default">Login</button>
+			</form>
+		</div>
+	  </div>
+	  <br>
+	 <div class="panel-group">
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+			<h4 class="panel-title">
+			  <a data-toggle="collapse" href="#collapse1">Map Specifications</a>
+			</h4>
+		  </div>
+		  <div id="collapse1" class="panel-collapse collapse">
+			<div class="panel-body">
+			
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+					  <label for="dataset"><h3>Dataset:</h3></label>
+					  <select class="form-control" id="dataset">
+						<option>Dataset #1</option>
+						<option>Dataset #2</option>
+						<option>Dataset #3</option>
+						<option>Dataset #4</option>
+					  </select>
+					</div>
+					<form>
+						<h3>Attribute Selection:</h3>
+						<table class="table table">
+							<thead class="tablehead">
+								<th width="10px">Selected</th>
+								<th>Attribute</th>
+							</thead>
+							<tbody >
+								<tr>
+									<td><input type="checkbox" value="id-attribute"></td>
+									<td>ID</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" value="id-attribute"></td>
+									<td>attribute#2</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" value="id-attribute"></td>
+									<td>attribute#3</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" value="id-attribute"></td>
+									<td>attribute#4</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" value="id-attribute"></td>
+									<td>attribute#5</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" value="id-attribute"></td>
+									<td>attribute#6</td>
+								</tr>
+							</tbody>
+						</table>
+						<button type="button" class="btn btn-success" style="float: right">Generate Maps</button>
+					</form>
+					<br><br>
+				</div>
+				<div class="col-md-6">
+					<h3>Thematic Map:</h3>
+					<div class="btn-group">
+					  <button type="button" class="btn btn-info" style="width:150px">Map#1</button>
+					  <button type="button" class="btn btn-info" style="width:150px">Map#2</button>
+					  <button type="button" class="btn btn-info" style="width:150px">Map#3</button>
+					</div>
+					<br>
+					<br>
+					<br>
+
+					<h3>Download Map</h3>
+					<button type="button" class="btn btn-primary" style="width:150px"><h3><span class="glyphicon glyphicon-download"></h3></button>
+				</div>
+			</div>
+			
+			</div>
+			<div class="panel-footer">
+					<a data-toggle="collapse" href="#collapse1">Close</a>
+			</div>
+		  </div>
+		</div>
+
+</body>
+</html>

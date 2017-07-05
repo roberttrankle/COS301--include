@@ -1,0 +1,44 @@
+
+body {
+	background-color: #12607a;
+}
+
+h1 {
+	color: black;
+	text-align: left;
+}
+
+table {
+	border: 1px solid black;
+	height: 10px;
+	overflow: scroll;
+}
+
+table {
+	width: 100%;
+}
+
+thead, tbody, tr, td, th { display: block; }
+
+tr:after {
+	content: ' ';
+	display: block;
+	visibility: hidden;
+	clear: both;
+}
+
+thead th {
+	height: 40px;
+	background-color:#046059;
+}
+
+tbody {
+	height: 120px;
+	overflow-y: auto;
+	background-color:white;
+}
+
+tbody td, thead th {
+	width: 50%;
+	float: left;
+}
