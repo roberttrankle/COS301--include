@@ -10,7 +10,7 @@ AUTH="Siyabonga Magubane 15289347 "
   -open stackbuilder, then select postgresql 9.6 on port 5432
   -Downloading list , select spatial extension dropdown then tick PostGIS 2.3 Bundle for PostgreSQL 9.6 .
 
-3 Now you can either open up pgAdmin and create database using  or using pgAmin or cmd.
+3 Now you can either open up pgAdmin and create database using pgAmin or cmd.
 
 3.1 pgAdmin
  -under server there will be PostgreSQL 9.6
@@ -21,7 +21,7 @@ AUTH="Siyabonga Magubane 15289347 "
     SELECT postgis_full_version();
  - 
 
-3.2 cmd
+3.2 cmd for windows
 	open up terminal and set environmental variables to C:\Program Files\PostgreSQL\9.6\bin.
 
 	use command : 
@@ -51,9 +51,14 @@ AUTH="Siyabonga Magubane 15289347 "
  	you open pgAdmin and navigate to Database >> <DatabaseName> >> Schemas >> public >> Tables to view the table of the shapefile added.
 
  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
- 		making queries  can be made using cmd(psql) or pgAdmin
+ 		making queries to the database can be made using cmd(psql) or pgAdmin
  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
+	To add database onto geoserver. //assuming Geoserver has been installed.
+	Go to stores>> new stores >> PostGIS database. 
+	Fill in the Data Source Name , database , user , password and schema your database is using in postgresql and click save
+	
+	
+	
 
 
 
