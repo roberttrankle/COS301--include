@@ -1,0 +1,248 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{enumitem}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\newcommand*{\titleGP}{\begingroup
+\centering 
+\vspace*{\baselineskip}
+
+\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt}
+\rule{\textwidth}{0.4pt}\\[\baselineskip]
+
+{\LARGE CGIS Map Production\\ [0.3\baselineskip] Software Requirements Specification } \\ [0.2\baselineskip]
+\rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt}
+\rule{\textwidth}{1.6pt}\\[\baselineskip] %
+
+% \scshape %
+% A concise specification on the functional requirements  \\
+% and use cases of CGIS \\[\baselineskip]
+
+% \vspace*{2\baselineskip}
+
+Compiled By \\[\baselineskip]
+{\Large Siyabonga Magubane - u15289347 \\ Bernard van Tonder -  u15008992 \\ Boikanyo Modiko - u15227678 \\ Cian Steenkamp - u15095682 \\ Robert Trankle - u15092454\par} 
+
+\vfill
+
+{\scshape 2017} \\[0.3\baselineskip]
+{\large \#include}\par
+
+\endgroup}
+
+\begin{document}
+	\begin{center}
+		\includegraphics[width=\textwidth]{front-page}
+	\end{center}
+\titleGP
+
+\newpage
+\tableofcontents
+\listoffigures	
+\newpage
+	\section{Introduction}
+    	
+        \subsection{Purpose}
+        	{The purpose of this document is to put forth a description detailing the \textbf{CGIS Map Production} web application. It explains the main purpose of the system, as well as the subsystems, the interfaces of these subsystems, and what these subsystems will and will not do, as well as the constraints. This documents provides the requirement specification for the CGIS Map Production system as a whole. It is intended for the client, as well as the developers.}
+    	\subsection{Scope}
+{The CGIS Map Production will be a web-based application. The application will create Statistical Maps (Thematic Maps), based on the different attributes of the provided geospatial data. The maps will cover the Tshwane, and the different wards within Tshwane.\\\\
+The system will provide a list of attributes, from a database, that the user may select. The selected attributes will allow the system to generate different types of Thematic Maps (Choropleth, Dot Density etc.) The system must be able to generate a minimum of 3 different Thematic maps.\\\\
+The Standardization subsystem will be the core of the system. It will take the information (data) from the database and standardize it in order to quantify the data for different regions.\\\\
+This document aims to identify and outline various aspects of the CGIS Map Production system. The interfaces and operations will be discussed. It will also address the functional and non-functional requirements of the system, as well as the data requirements. This will outline the system, which will be used to derive a series of Use Cases.}
+        \subsection{Definitions, Acronyms, and Abbreviations}
+            \begin{table}[ht!]
+	\centering
+	\begin{tabular}{|p{4cm}|p{7cm}|}
+		\hline
+		\textbf{Term} & \textbf{Definition} \\		
+		\hline
+		UI & User interface \\
+        \hline
+		CRUD & Create, Read, Update and Delete \\
+		\hline
+		FR & Functional Requirement \\
+		\hline
+		GIS & Geographic Information System \\
+		\hline
+		CGIS & Center for Geographic Information System \\
+		\hline
+		UC & Use Case\\
+		\hline
+	\end{tabular}
+\end{table}
+       
+	\section{Overall Description}
+        
+        	\subsubsection{System Interface}{
+\textbf{User Interface}:\\\\
+Functionality:\\\\
+The functionality of the user interface is to allow the user to interact with the system. Through this aspect of the system the user can perform all the functions necessary to create and display a map. Through the interface the user will be able to create and display various thematic maps using the geospatial dataset.\\\\
+How functionality achieves requirements:\\\\
+The user interface allows the functionality of the application to meet the requirements. The user will be able to manipulate the map by specifying various map attributes, for example scale the map. The user may select the display map option where three different maps will appear. The user may select the type of map they want to view and the map will be viewed in full, fulfilling the view automated map requirement.\\\\
+\textbf{Hardware Interface}:\\\\
+Functionality:\\\\
+The CGIS hardware interface requirement consists of tools that are required for viewing , interacting and downloading of the map image.Since the application will be used over the internet, all hardware requirements required to connect to the internet such as Modem, WAN – LAN, Ethernet, Wifi to name a few are needed.\\\\
+How functionality achieves requirements :\\\\
+This hardware requirements will allow the achievement of the functional requirements by facilitating the operation of the application. Interacting with the application and any other such features of the application will be achieved through keyboard and mouse interaction. The networking hardware of the components such as the wireless fidelity infrastructure within the device allows for communication to the system server.\\\\
+\textbf{Software Interface:}\\\\
+The system requires browser tools such as Google Chrome, Mozilla Firefox to access application.
+The system requires use of the HTTP (Hypertext Transfer Protocol) for collaborative, hypermedia and distributed information systems. The system makes use of database software technologies such as PostGis to store and retrieve dataset information
+
+}
+	\section{Specific Requirements}
+    	\subsection{Functional Requirements}
+        \begin{enumerate}[label=\alph*]
+        \item Generate three different types of thematic maps.
+		\item Allow the user to select attributes, that are available in the database, to generate the map.
+		\item Display the three different types of thematic maps.
+		\item Manipulate the scale of the maps.
+        \item Manipulate/Specify map attributes.
+        \end{enumerate}
+        \subsection{Quality(non-functional) Requirements}
+        \begin{enumerate}[label=\alph*]
+        \item Performance.
+		\item Availability.
+		\item Scalability.
+        \item Provide security (confidentiality) for the database and locations.\\
+        \end{enumerate}
+        Detailed Description:
+        \begin{enumerate}[label=\alph*]
+        \item Performance: Data will be input, maps rendered and displayed within a reasonable time. The software will immediately respond to user input. The process from input to output will endure for less than one minute. 
+		\item Availability: The software will be functioning on demand with no obstructions to users who have sufficient permission.
+		\item Scalability: Any complete dataset in the required format can be processed and displayed.
+		 \item Security: Sensitive data will be protected. Only those with sufficient permission will be able to access sensitive data contained in the dataset.
+        \end{enumerate}
+        
+	{
+    \section{Use Cases}
+\noindent\textbf{UC1: Map Display and Scaling}
+
+\begin{flushleft}
+\begin{tabular}{ |p{7cm}|p{7cm}| } 
+   \hline
+  \multicolumn{2}{|p{\textwidth}|}{\textbf{Precondition:} The user should have generated the 3 maps by clicking "Generate Maps"} \\
+  \hline
+\textbf {Actor: General User} & \textbf{System: Navigation}\\ 
+\hline
+ & 0:System displays 3 types of thematic maps and a button for scaling each map\\ 
+\hline
+ 1:The user scales the 3 maps by clicking on the appropriate "scaling" button  & 2: System displays scaled map(s) \\
+  \hline
+  \multicolumn{2}{|p{\textwidth}|}{\textbf{Postcondition: None}} \\
+   \hline
+
+\end{tabular}
+
+\end{flushleft}
+\begin{center}
+    	Table 1: Find Current Location Use Case Narrative
+\end{center}
+
+\begin{figure}[h!]
+	\includegraphics[width=\textwidth]{map_display_and_scaling_use_case}
+	\caption{Graph Display and Scaling}
+\end{figure}
+
+\pagebreak
+
+\noindent\textbf{UC2: Managing Data Sets}
+\begin{flushleft}
+\begin{tabular}{ |p{0.5\textwidth}|p{0.5\textwidth}| }
+  \hline
+    \multicolumn{2}{|p{\textwidth}|}{Precondition: 
+  Admin must be a valid and login.} \\
+  \hline
+  Actor: Admin & System:  \\
+   \hline
+   & 0. System displays listed data sets, and an option to add data sets \\
+  \hline
+    1.Admin selects to add/ remove data sets &\\
+  \hline
+   & 3. System verifies action, and validates it. \\
+  \hline
+  \multicolumn{2}{|p{\textwidth}|}{Postcondition: None} \\
+   \hline
+\end{tabular}
+\end{flushleft}
+
+\begin{figure}[h!]
+\includegraphics[width=\textwidth]{AdminUseCase}
+	\caption{Use case diagram for Administrator data set Management}
+\end{figure}
+
+\pagebreak
+\noindent\textbf{UC3: Generating and Manipulating Maps}
+\begin{flushleft}
+\begin{tabular}{ |p{0.5\textwidth}|p{0.5\textwidth}| }
+  \hline
+  \multicolumn{2}{|p{\textwidth}|}{Precondition:} \\
+  \hline
+  Actor: User & System:  \\
+   \hline
+   & 0. System displays attributes for user to select \\
+  \hline
+    1.TUCBW user specifies the attributes they would like to use to generate the maps & 2. System generates 3 different types of thematic maps \\
+  \hline
+  3. User saves and downloads map  & \\
+  \hline
+  4. TUCEW user clicks the Exit button & \\
+  \hline
+  \multicolumn{2}{|p{\textwidth}|}{Postcondition:} \\
+   \hline
+\end{tabular}
+\end{flushleft}
+
+\begin{figure}[h!]
+\includegraphics[width=\textwidth]{gen_maps3}
+	\caption{Use case diagram for generating and manipulating thematic maps}
+\end{figure} 
+
+\pagebreak
+\subsection{Traceability Matrix}
+\textbf{Use cases}
+\begin{enumerate}
+\item UC1.1: Display Maps (Actor: User; System: Map display and scaling)
+\item UC1.2: Scale Maps (Actor: User; System: Map display and scaling)
+\item UC2.1.1: Add Data Sets (Actor: Administrator; System: Data set management)
+\item UC2.1.2: Remove Data Sets (Actor: Administrator; System: Data set management)
+\item UC3.1.1: Manipulate Map Characteristics (Actor: Administrator; System: Data set management)
+\item UC3.1.2: Save Maps (Actor: Administrator; System: Map generation)
+
+\end{enumerate}
+\textbf{Requirements}
+\begin{enumerate}
+\item R1: Generate three different types of thematic maps.
+\item R2: Allow the user to select attributes, that are available in the database, to generate the map.
+\item R3: Display the three different types of thematic maps.
+\item R4: Manipulate the scale of the maps.
+\item R5: Manipulate/Specify map attributes.
+
+\end{enumerate}
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c|c|c| } 
+ \hline
+ Requirement & UC1.1 & UC1.2 & UC2.1.1 & UC2.1.2 & UC3.1.1 & UC3.1.2 \\ \hline
+ R1 & X & & & & &  \\  \hline
+ R2 &  &  & & & X & \\  \hline
+ R3 & X  & & & & & X \\  \hline
+ R4 &   & X & & & & \\  \hline
+ R5 &   &  & X & X & X & \\  \hline
+\end{tabular}
+\end{center}
+
+        \subsection{Design Constraints}
+        {\begin{itemize}
+        \item Open-source technologies should be used.
+        \item Keep dataset attributes and information privacy-sensitive.
+        \end{itemize}}
+
+\newpage
+\section{References}
+{IEEE Recommended Practice for Software Requirements Specification\\
+2013-MSc-Rautenbach}
+\end{document}
