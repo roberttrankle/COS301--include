@@ -20,17 +20,21 @@ Open side menu
     Click Button    menubutton
 
 Select map variable
+    wait until element is visible    xpath=//select[@id="dataset"]
     click element    xpath=//select[@id="dataset"]
     wait until element is visible    xpath=//option[contains(text(),'Households')]
+    sleep    1s
     click element    xpath=//option[contains(text(),'Households')]
     click element    xpath=//select[@id="dataset"]
+    sleep    1s
     Select Checkbox    ha_water_s
     #Select map type
     #click element    xpath=//select/option[1]
 
 Select map type
+    sleep    1s
     click Button    b2
 
-Choose Ok On Next Confirmation
-    #Click Button    name=alert_button
-    #Click Element    //a[contains(.,'Map')] Confirm Action
+Close side menu
+    sleep    2s
+    Click Link    id=close_btn
