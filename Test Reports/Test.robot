@@ -10,11 +10,11 @@ Open chrome in CORS
     Call Method    ${options}    add_argument    disable-web-security
     Call Method    ${options}    add_argument    allow-running-insecure-content
     Create WebDriver    Chrome    chrome_options=${options}
-    Go To    file:///C:/Users/Boikanyo/Documents/Academics/3rd%20Year/COS%20301/Assignments/Capstone%20project/CGIS/UI/proto-SideMenu.html
+    Go To    file:///C:/Users/Boikanyo/Documents/Academics/3rd%20Year/Semester%202/COS%20301/Assignments/Capstone%20project/CGIS/UI/proto-SideMenu.html
     #User must sign in to check out
     #    [Documentation]    Thiis is some basic info about the test
     #    [Tags]    Smoke
-    #    Open Browser    file:///C:/Users/Boikanyo/Documents/Academics/3rd%20Year/COS%20301/Assignments/Capstone%20project/CGIS/UI/proto-SideMenu.html    chrome
+    #    Open Browser    file:///C:/Users/Boikanyo/Documents/Academics/3rd%20Year/Semester%202/COS%20301/Assignments/Capstone%20project/CGIS/UI/proto-SideMen    chrome
 
 Open side menu
     Click Button    menubutton
@@ -24,8 +24,13 @@ Select map variable
     wait until element is visible    xpath=//option[contains(text(),'Households')]
     click element    xpath=//option[contains(text(),'Households')]
     click element    xpath=//select[@id="dataset"]
+    Select Checkbox    ha_water_s
     #Select map type
-    # xpath=//select/option[1]
+    #click element    xpath=//select/option[1]
 
 Select map type
     click Button    b2
+
+Choose Ok On Next Confirmation
+    #Click Button    name=alert_button
+    #Click Element    //a[contains(.,'Map')] Confirm Action
