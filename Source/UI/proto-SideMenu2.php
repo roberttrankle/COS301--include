@@ -1,3 +1,10 @@
+<?php
+ session_start();
+  if(!(isset($_SESSION['username']))){ header("location: proto-SideMenu.html");}
+  $name= $_SESSION['username'];
+?>
+
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -24,16 +31,18 @@
 	  <div class="row" style="border-bottom:1px solid white;">
 		<div class="col-md-8"><h1>CGIS Map Production</h1></div>
 		<div class="col-md-4" style="padding-top:20px;">
-			<form class="form-inline" method="POST" action="login.php">
+			<form class="form-inline" method="GET" action="logout.php">
 				<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-				  <input id="usr" type="text" class="form-control" name="username" placeholder="Username">
+				
 				</div>
-				<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-				  <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+				<div <div class="input-group">
+				<p>
+					 
+					 <h3 style="color:black;">Logged in as : <b>   <?php echo "    ".$name."    " ;  ?>  </b> </h3>
+				 </p>
 				</div>
-				<button type="submit" class="btn btn-default">Login</button>
+				<button type="submit" class="btn btn-default">log out</button>
 			</form>
 		</div>
 	  </div>
@@ -106,7 +115,6 @@
 			<br>
 			<!--Javascript for sidemenu-->
 			<script>
-
 			function openNav() {
 				document.getElementById("sideMenu").style.width = "750px";
 			}
