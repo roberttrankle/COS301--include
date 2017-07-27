@@ -234,7 +234,7 @@ function loadMap(val){
                                 // colorsPerWard[i] = j / amountOfColorClasses * 360;
                                 console.log("Ward #" + i + " count= " + countPerWard[i] + " class#=" + j + " 's color is " + colorsPerWard[j]);
                                 var wardFill = new ol.style.Fill({
-                                    color: 'hsla(' + colorsPerWard[i] + ', 100%, 47%, 0.6)'
+                                    color: 'hsla(' + colorsPerWard[j] + ', 100%, 47%, 0.6)'
                                 });
                                 var wardStyle = new ol.style.Style({
                                     fill: wardFill,
