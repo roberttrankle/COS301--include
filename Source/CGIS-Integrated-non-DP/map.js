@@ -221,6 +221,7 @@ function loadMap(val){
                         classRangeMax.push(minClassCountOfWard + (currentColorFraction * (maxClassCountOfWard - minClassCountOfWard)));
                         currentColorFraction += 1 / amountOfColorClasses;
                         colorsPerWard[i] = i / amountOfColorClasses * 360;
+                        //colorsPerWard[i] = 130 - (i / amountOfColorClasses * 130); Green to Orange colours for demo
                         //Key for map
                         document.getElementById("mapKey").innerHTML += "<svg height=\"50\" width=\"200\">" +
                                 "<rect x=\"0\" y=\"25\" width=\"25\" height=\"25\" fill=\"hsla(" + colorsPerWard[i] + ", 100%, 47%, 0.6)\" />"
