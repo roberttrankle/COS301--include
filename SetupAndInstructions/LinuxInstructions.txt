@@ -1,0 +1,114 @@
+Linux Setup:
+1.Get Client-side code from Git from pre-review dev in source/OpenLayersVersion/
+2.Install Geoserver
+3.Setup Geoserver:
+	Put given data files in /usr/share/geoserver-2.11.1/data_dir/data/shapefiles
+	Create workspace,store,add layers,publish layers (follow guide of youtube video "HOW TO WORK IN GEOSERVER" by dhantotiam7)
+4.Setup Jetty(Server coming with Geoserver)
+	Download jetty-servelets.jar and jetty_util.jar (by downloading the whole jetty from the eclipse website)
+	Put those files in /usr/share/geoserver-2.11.1/webapps/geoserver/WEB-INF/lib
+	Add code from http://www.dynamicsax.co.in/2015/04/how-to-enable-cross-origin-resource.html to /usr/share/geoserver-2.11.1/webapps/geoserver/WEB-INF/web.xml (put just above </web-app>)
+5.Run main.html
+
+
+Server side________________________________________________
+
+	convert shp to psql to store as store in 
+shp2pgsql : shp2pgsql -s 4326 neighborhoods public.neighborhoods | psql -h myserver -d mydb -U myuser
+http://geoserver.geo-solutions.it/edu/en/adding_data/shp_postgis.html
+http://www.bostongis.com/pgsql2shp_shp2pgsql_quickguide.bqg
+
+	JQuery request to geoserver
+http://docs.geoserver.org/latest/en/user/services/wfs/basics.html
+
+___________________________________________________________
+PSQL
+	start procedure
+sudo -u postgres -i
+psql
+___________________________________________________________
+GEOSERVER
+
+Jetty Server :Enabling CORS NBNBNBNB
+	Download jetty bundle from eclipse, copy servelets .jar into web-inf/lib/
+	http://www.dynamicsax.co.in/2015/04/how-to-enable-cross-origin-resource.html
+
+	Req
+http://docs.geoserver.org/stable/en/user/services/wms/reference.html#getfeatureinfo
+
+	Installation
+http://docs.geoserver.org/stable/en/user/installation/linux.html
+
+	Run 				(For java: export JAVA_HOME=/usr/lib/jvm/java-8-oracle/)
+sh /usr/share/geoserver-2.11.1/bin/startup.sh
+
+	More info
+http://docs.geoserver.org/latest/en/user/services/wfs/outputformats.html
+
+
+Client_Side__________________________________________
+OPENLAYERS
+	guide
+	http://www.acuriousanimal.com/thebookofopenlayers3/index.html
+	https://openlayersbook.github.io/ch06-styling-vector-layers/example-06.html
+
+	barebones
+https://openlayers.org/en/latest/examples/accessible.html
+
+	download png example
+https://openlayers.org/en/latest/examples/export-map.html
+
+	great examples
+http://www.acuriousanimal.com/thebookofopenlayers3/
+
+
+
+
+
+_________________________________________________
+_________________________________________________
+Old______________________________________________
+LEAFLET & RELATED
+shp to geoJson: ogr2ogr -t_srs EPSG:4326 -f GeoJSON libraries.json facilities.shp -sql “SELECT * FROM table"
+shp add/remove to leaflet map: https://gis.stackexchange.com/questions/157000/how-do-i-toggle-add-remove-shapefile-layers-in-leaflet-js
+geojson add to leaflet: https://gis.stackexchange.com/questions/68489/how-to-load-external-geojson-file-into-leaflet-map
+https://maptimeboston.github.io/leaflet-intro/
+
+	Integrate GeoServer & Leaflet
+https://www.gaiaresources.com.au/json-with-geoserver-and-leaflet/
+
+	Only load specific points(for performance)
+https://stackoverflow.com/questions/25187937/loading-geojson-layers-from-geoserver-to-leaflet-map-based-on-the-current-boundi
+
+	uses Jquery:
+https://jquery.com/download/ use uncompressed for dev and compressed for deployment
+
+	Examples
+http://leafletjs.com/examples/geojson/example.html
+
+	Youtube tutorial
+https://www.youtube.com/watch?v=VkZbrTNsdSc
+https://www.youtube.com/watch?v=fDfkjx-VhLI
+
+	Geojson request (For before geoserver use)
+https://switch2osm.org/using-tiles/getting-started-with-leaflet/
+
+_____________________________________________________________-
+QGIS SERVER
+Instructions on how to install QGIS server
+1. Check that your Linux distribution has/is Debian Xenial in /etc/debian_version 
+2. Follow https://docs.qgis.org/2.18/en/docs/training_manual/qgis_server/install.html (This is best) :
+	https://gis.stackexchange.com/questions/121134/cannot-install-qgis-mapserver-on-ubuntu-12-04
+
+	http://www.paulshapley.com/2016/04/how-to-install-postgresql-95-and.html
+	http://www.paulshapley.com/2016/08/qgis-server-bringing-map-into-browser.html
+	http://www.paulshapley.com/2016/07/how-to-install-qgis-server-on-ubuntu.html
+
+When installing postgis/postgres, get the specific version supported by your os version eg Ubuntu 16.04 supports pgsql 9.5 and postgis 2.2, newer and older will not be supported. Make sure the pgsql version supports the postgis version.
+
+Use PyQGIS to run standalone scripts. On my ubuntu it is located at /usr/share/qgis/python/console
+
+Noq qgis module found:
+on Linux: export PYTHONPATH=/qgispath/share/qgis/python
+on Windows: set PYTHONPATH=c:\qgispath\python
+e.g. python projectsnapshots.py
