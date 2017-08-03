@@ -9,7 +9,7 @@
  
  <img src="http://i63.tinypic.com/10dsgv7.jpg" width="60"> [Bernard van Tonder - 15008992](https://github.com/bernardvt)<br />
  
-
+<img id="avatar" src="https://camo.githubusercontent.com/0eab2fe9d2ce0fa5422c4b638d1b29fee841a8d8/68747470733a2f2f6d656469612e6c6963646e2e636f6d2f6d70722f6d70722f736872696e6b6e705f3430305f3430302f41414541415141414141414141417550414141414a4463775a6d5135595755324c574d325a444d744e44526b4d5331685a4746684c54426d596d4d7a4f54466b4f54553459512e6a7067" alt="Boikanyo Modiko" width="60">  [Boikanyo Modiko - 15227678](https://github.com/bkmodiko)<br />
 
 <img src="https://avatars0.githubusercontent.com/u/25740398?v=3&u=e9818fe169350ae41ac93a6c970e6611ccd5607d&s=400" alt="Mountain View" width="60">  [Siyabonga Magubane - 15289347](https://github.com/siyabongamagubane)<br />
 
