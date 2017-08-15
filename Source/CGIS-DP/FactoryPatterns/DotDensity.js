@@ -1,13 +1,12 @@
 //Concrete Creator
 function DotDensityCreator(){
-	console.log("Density Creator");
     this.vectorClasses = [];
 };
 
 DotDensityCreator.prototype = Object.create(MapCreator.prototype);
 DotDensityCreator.prototype.constructor = DotDensityCreator;
 
-DotDensityCreator.prototype.createMap = function(map, vectorSource, colorPerClass, featureToDisplay){
+DotDensityCreator.prototype.createMap = function(map, vectorSource, colorPerClass, featureToDisplay, featureLayer){
     var VC = [];
 	var vectorStyleFunction = function(feature, resolution) {
         var hue = 0;
@@ -48,22 +47,15 @@ DotDensityCreator.prototype.createMap = function(map, vectorSource, colorPerClas
         })];
     };
 
-    var featureLayer = new ol.layer.Vector({
+    featureLayer.layer = new ol.layer.Vector({
         source: vectorSource,
         style: vectorStyleFunction
     });
-    map.addLayer(featureLayer);   
+    map.addLayer(featureLayer.layer);   
 };
 
 function DotDensityDesign(){
-	//Call to mapDesign to use the class.
-	//MapDesign.call();
-  	console.log("DD constructor");
-	//this.StuffLater = /*mapInformation*/;
-
-	/*Geoserver code to make map*/
-	/*openlayers code*/
-	/*convert map to image*/
+	
 };
 
 DotDensityDesign.prototype = Object.create(MapDesign.prototype);
