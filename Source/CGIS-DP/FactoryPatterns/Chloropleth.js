@@ -6,16 +6,14 @@ function chloroplethCreator() {
 chloroplethCreator.prototype = Object.create(MapCreator.prototype);
 chloroplethCreator.prototype.constructor = chloroplethCreator;
 
-chloroplethCreator.prototype.createMap = function(map, vectorSource, wardsSource, colorPerClass, amountOfColorClasses, featureToDisplay, wardsLayer, featureLayer) {
+chloroplethCreator.prototype.createMap = function(map, vectorSource, wardsSource, colorPerClass, amountOfColorClasses, featureToDisplay, wardsVectorLayer, featureLayer) {
 	if (wardsSource.getFeatures().length <= 0) {
 		console.log("WardsSource not ready");
 		return;
 	}
 
-    chloroplethDesign();
-
-    wardsVectorLayer = new ol.layer.Vector({
-        source: this.wardsSource,
+    wardsVectorLayer.layer = new ol.layer.Vector({
+        source: wardsSource,
         style: new ol.style.Style({
             fill: new ol.style.Fill({
                 color: 'rgba(0, 0, 0, 0.05)'
@@ -28,16 +26,16 @@ chloroplethCreator.prototype.createMap = function(map, vectorSource, wardsSource
         })
     });
 
-    map.addLayer(wardsVectorLayer);
+ //   map.addLayer(wardsLayer.layer);
 
 
-    featureLayer = new ol.layer.Vector({
+    featureLayer.layer = new ol.layer.Vector({
         source: vectorSource,
         style: new ol.style.Style({
             visible: true
         })
     });
-    map.addLayer(featureLayer);
+    map.addLayer(featureLayer.layer);
 
     var selectedClass = "Well Maintained";
     //This is the amount of class ranges for the count of the features win a ward. 
@@ -59,12 +57,11 @@ chloroplethCreator.prototype.createMap = function(map, vectorSource, wardsSource
         console.log("bg_l" + boundriesGeometry.length + " , pf_l" + pointFeatures.length);
         for (var i = 0; i < boundriesGeometry.length; i++) {
             countOfClassPerWard = 0;
-            console.log(i);
             for (var j = 0; j < pointFeatures.length; j++) {
                 // if(boundriesGeometry[i].getGeometry().intersects(pointFeatures[j].getGeometry())){
                 if (ol.extent.intersects(pointFeatures[j].getGeometry().getExtent(), boundriesGeometry[i].getGeometry().getExtent())) { // Cite:B
                     if ((pointFeatures[j].get(featureToDisplay)).localeCompare(selectedClass) == 0) {
-                        ++countOfClassPerWard;
+                        countOfClassPerWard = countOfClassPerWard + 1;
                     }
                 }
             }
@@ -78,6 +75,7 @@ chloroplethCreator.prototype.createMap = function(map, vectorSource, wardsSource
         }
     }
     if (maxClassCountOfWard > 0) {
+    	console.log("ENETER");
         var currentColorFraction = 0;
 
         //Upper limit for each class, where class 0's minimum = minClassCountOfWard;
@@ -122,12 +120,7 @@ chloroplethCreator.prototype.createMap = function(map, vectorSource, wardsSource
 };
 
 function chloroplethDesign() {
-    // MapDesign.call();
-    console.log("chloroplethDesign constructor");
 
-    /*Geoserver code to make map*/
-    /*openlayers code*/
-    /*convert map to image*/
 };
 
 chloroplethDesign.prototype = Object.create(MapDesign.prototype);
