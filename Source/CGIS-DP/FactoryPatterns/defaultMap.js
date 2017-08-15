@@ -1,6 +1,5 @@
 //Concrete Creator
 function defaultMapCreator() {
-	console.log("default Map being creating.");
 };
 
 defaultMapCreator.prototype = Object.create(MapCreator.prototype);
