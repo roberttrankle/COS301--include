@@ -1,12 +1,11 @@
 var MapDesign = function()
 {
-	console.log("MapDesign Shit");
 	this.featureToDisplay = 'ha_dwellin';//must set with UI
 	this.vectorSource;
-	this.wardSource;
+	this.wardsSource;
 	this.tileLayer;
-	this.wardsVectorLayer;
-	this.featureLayer;
+	this.wardsVectorLayer = { layer : 'value'};
+	this.featureLayer = { layer : 'value'};
 	this.symbolLayer;
 	this.map;
 	this.mapDisplayType;
@@ -51,12 +50,11 @@ MapDesign.prototype.setWardsSource = function(source){
 MapDesign.prototype.loadSources= function() {
 	if(this.vectorSource == undefined)
 	{
-		console.log("creating vectorSource");
 		this.createVectorSource();//Put in the data set as param, using default for now.
 	}
-	if(this.wardSource == undefined)
+	if(this.wardsSource == undefined)
 	{
-		this.creatWardSource();
+		this.creatwardsSource();
 	}
 	this.createWardLayer();
 	this.createFeatureLayer();
@@ -64,12 +62,10 @@ MapDesign.prototype.loadSources= function() {
 	//this.createTileLayer();
 	//this.map.addLayer(this.wardsVectorLayer);
 	//this.map.addLayer(this.featureLayer);
-	console.log(this.vectorSource.getState())
 	if (this.vectorSource.getState() != 'ready'){
 		this.vectorSource.on('change', function(evt) {
 	        var source = evt.target;
 	        var mapToCreate;
-	        console.log(source.getState());
 	        if (source.getState() == 'ready') {
 				this.defaultMap = new defaultMapCreator();
 				this.dotDensity = new DotDensityCreator();
@@ -92,9 +88,8 @@ MapDesign.prototype.loadSources= function() {
 
 MapDesign.prototype.isSourceReady= function(val) {
 	if (this.vectorSource.getState() == 'ready') {
-		console.log(this.vectorSource.getFeatures());
-		this.map.removeLayer(this.featureLayer);
-    	this.map.removeLayer(this.wardsVectorLayer);
+		this.createWardLayer();
+		this.removeLayers();
 		this.calculateVectorClasses();
 		this.calculateColorClass();
 		switch (val) {
@@ -103,27 +98,43 @@ MapDesign.prototype.isSourceReady= function(val) {
 	        break;
 	    case 1:
 	    	this.loadWards();
-	    	console.log(this.colorPerClass);
-	        this.dotDensity.createMap(this.map, this.vectorSource, this.colorPerClass, this.featureToDisplay);
+	        this.dotDensity.createMap(this.map, this.vectorSource, this.colorPerClass, this.featureToDisplay, this.featureLayer);
 	        break;
 	    case 2:
-	        this.chloro.createMap();
+	    	this.loadWards();
+	    	this.heatmap.createMap(this.map, this.vectorSource, this.featureLayer);
 	        break;
 	    case 3:
-	        this.heatmap.createMap();
+	    	this.loadWards();
+	        this.chloro.createMap(this.map, this.vectorSource, this.wardsSource, this.colorPerClass, 5, this.featureToDisplay, this.wardsVectorLayer, this.featureLayer);
 	        break;
 	    case 4:
+	    	this.loadWards();
 	        this.propsymbol.createMap();
 	        break;
 	    }
 
-	    this.map.addLayer(this.wardsVectorLayer);
-        this.map.addLayer(this.featureLayer);   
+	    this.map.addLayer(this.wardsVectorLayer.layer);
+
 	    return true;
     } else{
     	console.log("Source was not ready, map creation needs to wait.");
     	return false;
     }
+};
+
+MapDesign.prototype.removeLayers = function()
+{
+	 if(this.wardsSource != undefined)
+	 {
+	 	console.log("removing Style");
+	 	var boundriesGeometry = this.wardsSource.getFeatures();
+	 	 for (var i = 0; i < boundriesGeometry.length; i++) {
+	 	 	boundriesGeometry[i].setStyle();
+	 	 }
+	 }
+	this.map.removeLayer(this.featureLayer.layer);
+	this.map.removeLayer(this.wardsVectorLayer.layer);
 };
 
 MapDesign.prototype.createVectorSource = function(){
@@ -139,7 +150,7 @@ MapDesign.prototype.createVectorSource = function(){
     });
 };
 
-MapDesign.prototype.creatWardSource = function() {
+MapDesign.prototype.creatwardsSource = function() {
 	this.wardsSource = new ol.source.Vector({
         format: new ol.format.GeoJSON(),
         url: function(extent) {
@@ -153,7 +164,7 @@ MapDesign.prototype.creatWardSource = function() {
 };
 
 MapDesign.prototype.loadWards = function(){
-	this.wardsVectorLayer = new ol.layer.Vector({
+	this.wardsVectorLayer.layer = new ol.layer.Vector({
         source: this.wardsSource,
         style: new ol.style.Style({
             fill: new ol.style.Fill({
@@ -178,7 +189,7 @@ MapDesign.prototype.loadWards = function(){
 }
 
 MapDesign.prototype.createFeatureLayer = function() {
-	this.featureLayer = new ol.layer.Vector({
+	this.featureLayer.layer = new ol.layer.Vector({
         source: this.vectorSource,
         style: new ol.style.Style({
             visible: false
@@ -187,8 +198,8 @@ MapDesign.prototype.createFeatureLayer = function() {
 };
 
 MapDesign.prototype.createWardLayer = function() {
-	this.wardsVectorLayer = new ol.layer.Vector({
-        source: this.vectorSource,
+	this.wardsVectorLayer.layer = new ol.layer.Vector({
+        source: this.wardsSource,
         style: new ol.style.Style({
             visible: false
         })
