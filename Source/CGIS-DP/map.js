@@ -12,6 +12,7 @@ function loadMap(val){
     mapDesign = new MapDesign();
     console.log("DEFINE MAPDESIGN");
   }
+  mapDesign.removeLayers();
   while (mapDesign.isSourceReady(val) == false) {}
 }
 
@@ -53,10 +54,6 @@ function changeAtt(feat){
             }
         }
     }
-}
-
-function getColors(hue){
-
 }
 /* Citations
   A: https://gis.stackexchange.com/questions/167112/how-to-create-a-circle-in-openlayers-3
