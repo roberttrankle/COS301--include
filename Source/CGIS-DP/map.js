@@ -13,7 +13,7 @@ function loadMap(mapType){
     console.log("DEFINE MAPDESIGN");
   }
   mapDesign.removeLayers();
-  while (mapDesign.isSourceReady(mapType) == false) {}
+  mapDesign.isSourceReady(mapType);
 }
 
 function loadDataset(url, callback){
