@@ -1,5 +1,5 @@
 var MapDesign = function() {
-    this.featureToDisplay = 'ha_dwellin'; //must set with UI
+    this.featureToDisplay = "ha_dwell_2"; //must set with UI
     this.vectorSource;
     this.wardsSource;
     this.symbolSource;
@@ -89,43 +89,14 @@ MapDesign.prototype.isSourceReady = function(mapType) {
     if (this.vectorSource.getState() == 'ready') {
         this.createWardLayer();
         this.removeLayers();
-        this.calculateVectorClasses();
-        this.calculateColorClass();
-        // if not default map loadWards
+        // if not default map loadWards:
         if (mapType != 0) {
         	this.loadWards();
         	// this.createWardLayer();
         	this.createVectorSource();
         	this.createFeatureLayer();
          }
-        // if wardsSource || vectorSource not complete :
-        // recursiveCreate(mapType);
         this.recursiveCreate(mapType);
-        // switch (mapType) {
-        //     case 0:
-        //         this.defaultMap.createMap(this.map);
-        //         break;
-        //     case 1:
-        //         this.loadWards();
-        //         this.dotDensity.createMap(this.map, this.vectorSource, this.colorPerClass, this.featureToDisplay, this.featureLayer);
-        //         break;
-        //     case 2:
-        //         this.loadWards();
-        //         this.heatmap.createMap(this.map, this.vectorSource, this.featureLayer);
-        //         break;
-        //     case 3:
-        //         this.loadWards();
-        //         this.chloro.createMap(this.map, this.vectorSource, this.wardsSource, this.colorPerClass, 5, this.featureToDisplay, this.wardsVectorLayer, this.featureLayer);
-        //         break;
-        //     case 4:
-        //         this.loadWards();
-        //         // Recursively run test function
-        //         this.propsymbol.createMap(this.map, this.vectorSource, this.wardsSource, this.symbolSource, this.colorPerClass, this.featureToDisplay, this);
-        //         break;
-        // }
-
-        // this.map.addLayer(this.wardsVectorLayer.layer);
-
         return true;
     } else {
         console.log("Source was not ready, map creation needs to wait.");
@@ -143,6 +114,10 @@ MapDesign.prototype.recursiveCreate = function(mapType) {
 			that.recursiveCreate(mapType);
 		}, 1000);
 		return;
+	}
+	if (mapType == 1 || mapType == 3 || mapType == 4){
+		this.getUniqueDiscreteValues(this.featureToDisplay);
+	    this.calculateColorClass(this.vectorLayerClasses);
 	}
     switch (mapType) {
         case 0:
@@ -297,30 +272,31 @@ MapDesign.prototype.getVectorClasses = function() {
     return this.vectorLayerClasses;
 }
 
-MapDesign.prototype.calculateVectorClasses = function() {
-    // this.vectorSource.forEachFeature(function(feature) {
-    //    if (this.vectorLayerClasses.indexOf(feature.get(this.featureToDisplay)) == -1) {
-    //         this.vectorLayerClasses.push(feature.get(this.featureToDisplay));
-    //     }
-    // });
+//	Creates an array of unique values for a attribute which's name is passed
+MapDesign.prototype.getUniqueDiscreteValues = function(attributeTitle) {
+	var tempVectorLayerClasses = [];
+    this.vectorSource.forEachFeature(function(feature) {
+       if (tempVectorLayerClasses.indexOf(feature.get(attributeTitle)) == -1) {
+            tempVectorLayerClasses.push(feature.get(attributeTitle));
+        }
+    });
+    this.vectorLayerClasses = tempVectorLayerClasses;
+    return tempVectorLayerClasses;
 }
-
-MapDesign.prototype.calculateColorClass = function() {
-    // for (var i = 0; i < this.vectorLayerClasses.length; i++) {
-    //     this.colorPerClass.push((i / vectorClassCount) * 360);
-    // }
-    this.colorPerClass.push(0);
-    this.colorPerClass.push(90);
-    this.colorPerClass.push(180);
-    this.colorPerClass.push(270);
-    this.colorPerClass.push(330);
-    this.colorPerClass.push(10);
-    this.colorPerClass.push(10);
-    this.colorPerClass.push(10);
-    this.colorPerClass.push(10);
-    this.colorPerClass.push(10);
-    this.colorPerClass.push(10);
-    this.colorPerClass.push(10);
-    this.colorPerClass.push(10);
-    this.colorPerClass.push(10);
+MapDesign.prototype.calculateColorClass = function(vectorLayerClasses) {
+    if(vectorLayerClasses == undefined) {
+    	console.log("VectorlayerClasses is undefined, necessary in MD.calculateColorClass");
+    	return;
+    }
+    if(vectorLayerClasses.length <= 0) {
+    	console.log("VectorlayerClasses is empty, necessary in MD.calculateColorClass");
+    	return;
+    }
+    var tempColorClasses = [];
+    var classCount = vectorLayerClasses.length;
+    for (var i = 0; i < classCount; i++) {
+        tempColorClasses.push((i / classCount) * 360);
+    }
+    this.colorPerClass = tempColorClasses;
+    return tempColorClasses;
 }
