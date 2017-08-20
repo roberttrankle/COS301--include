@@ -17,6 +17,7 @@ var MapDesign = function() {
     this.vectorLayerClasses = [];
     this.colorPerClass = [];
     this.propsymbol;
+    this.concreteMapBuilder;
     this.loadSources();
 };
 
@@ -299,4 +300,15 @@ MapDesign.prototype.calculateColorClass = function(vectorLayerClasses) {
     }
     this.colorPerClass = tempColorClasses;
     return tempColorClasses;
+}
+
+MapDesign.prototype.createMapElements = function() {
+	if (this.concreteMapBuilder == undefined) {
+		this.concreteMapBuilder = new ConcreteMapBuilder();
+	}
+	this.concreteMapBuilder.buildMapHeading();
+	this.concreteMapBuilder.buildMapLegend();
+	this.concreteMapBuilder.buildMapScale();
+	this.concreteMapBuilder.buildMapNorthArrow();
+	this.concreteMapBuilder.buildMapMetaData();
 }
