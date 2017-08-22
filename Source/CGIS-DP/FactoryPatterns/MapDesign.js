@@ -1,14 +1,20 @@
 var MapDesign = function() {
-    this.featureToDisplay = "ha_dwell_2"; //must set with UI
+    this.featureToDisplay = 'ha_dwellin'; //must set with UI
     this.vectorSource;
     this.wardsSource;
     this.symbolSource;
+    this.WizardwardsSource;
+    this.WizardsymbolSource;
     this.tileLayer;
     //Layers are made object (not primitives) to pass as reference to other classes
     this.wardsVectorLayer = { layer: 'value' };
     this.featureLayer = { layer: 'value' };
     this.symbolLayer = { layer: 'value' };
     this.map;
+    this.mapTypeWizard1;
+    this.mapTypeWizard2;
+    this.mapTypeWizard3;
+    this.mapTypeWizard4;
     this.mapDisplayType;
     this.defaultMap;
     this.dotDensity;
@@ -17,7 +23,7 @@ var MapDesign = function() {
     this.vectorLayerClasses = [];
     this.colorPerClass = [];
     this.propsymbol;
-    this.concreteMapBuilder;
+    this.concreteMapArray = []; //Array to hold concrete products.
     this.loadSources();
 };
 
@@ -50,13 +56,13 @@ MapDesign.prototype.setWardsSource = function(source) {
 };
 
 MapDesign.prototype.loadSources = function() {
-	this.initializeMap();
     if (this.vectorSource == undefined) {
         this.createVectorSource(); //Put in the data set as param, using default for now.
     }
     if (this.wardsSource == undefined) {
         this.creatwardsSource();
     }
+    this.initializeMap();
     this.createWardLayer();
     this.createFeatureLayer();
     //this.createTileLayer();
@@ -90,14 +96,43 @@ MapDesign.prototype.isSourceReady = function(mapType) {
     if (this.vectorSource.getState() == 'ready') {
         this.createWardLayer();
         this.removeLayers();
-        // if not default map loadWards:
+        this.calculateVectorClasses();
+        this.calculateColorClass();
+        // if not default map loadWards
         if (mapType != 0) {
         	this.loadWards();
         	// this.createWardLayer();
         	this.createVectorSource();
         	this.createFeatureLayer();
          }
+        // if wardsSource || vectorSource not complete :
+        // recursiveCreate(mapType);
         this.recursiveCreate(mapType);
+        // switch (mapType) {
+        //     case 0:
+        //         this.defaultMap.createMap(this.map);
+        //         break;
+        //     case 1:
+        //         this.loadWards();
+        //         this.dotDensity.createMap(this.map, this.vectorSource, this.colorPerClass, this.featureToDisplay, this.featureLayer);
+        //         break;
+        //     case 2:
+        //         this.loadWards();
+        //         this.heatmap.createMap(this.map, this.vectorSource, this.featureLayer);
+        //         break;
+        //     case 3:
+        //         this.loadWards();
+        //         this.chloro.createMap(this.map, this.vectorSource, this.wardsSource, this.colorPerClass, 5, this.featureToDisplay, this.wardsVectorLayer, this.featureLayer);
+        //         break;
+        //     case 4:
+        //         this.loadWards();
+        //         // Recursively run test function
+        //         this.propsymbol.createMap(this.map, this.vectorSource, this.wardsSource, this.symbolSource, this.colorPerClass, this.featureToDisplay, this);
+        //         break;
+        // }
+
+        // this.map.addLayer(this.wardsVectorLayer.layer);
+
         return true;
     } else {
         console.log("Source was not ready, map creation needs to wait.");
@@ -116,29 +151,60 @@ MapDesign.prototype.recursiveCreate = function(mapType) {
 		}, 1000);
 		return;
 	}
-	if (mapType == 1 || mapType == 3 || mapType == 4){
-		this.getUniqueDiscreteValues(this.featureToDisplay);
-	    this.calculateColorClass(this.vectorLayerClasses);
-	}
     switch (mapType) {
         case 0:
             this.defaultMap.createMap(this.map);
+            this.defaultMap.createMap(this.mapTypeWizard1);
+            this.defaultMap.createMap(this.mapTypeWizard2);
+            this.defaultMap.createMap(this.mapTypeWizard3);
+            this.defaultMap.createMap(this.mapTypeWizard4);
             break;
         case 1:
             this.dotDensity.createMap(this.map, this.vectorSource, this.colorPerClass, this.featureToDisplay, this.featureLayer);
+            this.removeLayers();
+            this.mapTypeWizard1.addLayer(this.featureLayer.layer);
+            this.mapTypeWizard1.addLayer(this.wardsVectorLayer.layer);
+            console.log("adding layer for DD wizard");
             break;
         case 2:
             this.heatmap.createMap(this.map, this.vectorSource, this.featureLayer);
+            this.mapTypeWizard2.addLayer(this.featureLayer.layer);
+            this.mapTypeWizard2.addLayer(this.wardsVectorLayer.layer);
+            this.removeLayers();
             break;
         case 3:
             this.chloro.createMap(this.map, this.vectorSource, this.wardsSource, this.colorPerClass, 5, this.featureToDisplay, this.wardsVectorLayer, this.featureLayer);
+            this.chloro.createMap(this.map, this.vectorSource, this.WizardwardsSource, this.colorPerClass, 5, this.featureToDisplay, this.wardsVectorLayer, this.featureLayer);
+            //this.mapTypeWizard2.addLayer(this.featureLayer.layer);
+            this.mapTypeWizard3.addLayer(this.wardsVectorLayer.layer);
+            this.removeLayers();
             break;
         case 4:
             // Recursively run test function
             this.propsymbol.createMap(this.map, this.vectorSource, this.wardsSource, this.symbolSource, this.colorPerClass, this.featureToDisplay, this, this.symbolLayer);
+            this.propsymbol.createMap(this.mapTypeWizard4, this.vectorSource, this.wardsSource, this.WizardsymbolSource, this.colorPerClass, this.featureToDisplay, this, this.symbolLayer);
+            this.mapTypeWizard4.addLayer(this.wardsVectorLayer.layer);
+            this.removeLayers();
             break;
     }
     this.map.addLayer(this.wardsVectorLayer.layer);
+    //this.map.addLayer(this.featureLayer.layer);
+    //cpA.add( { new cp(this.map )});
+    console.log("before switch");
+    switch (mapType) {
+        case 1:
+            this.concreteMapArray.push(new DotDensityDesign(this.mapTypeWizard1));
+            break;
+        case 2:
+            this.concreteMapArray.push(new HeatMapDesign(this.mapTypeWizard2));
+            break;
+        case 3:
+            this.concreteMapArray.push(new chloroplethDesign(this.mapTypeWizard3));
+            break;
+        case 4:
+            this.concreteMapArray.push(new PropSymbolDesign(this.mapTypeWizard4));
+            break;
+    }
 }
 
 MapDesign.prototype.removeLayers = function() {
@@ -167,7 +233,7 @@ MapDesign.prototype.createVectorSource = function() {
         format: new ol.format.GeoJSON(),
         url: function(extent) {
             return 'http://localhost:8080/geoserver/wfs?service=WFS&' +
-                'version=1.1.0&request=GetFeature&typename=Given:copc_households&' +
+                'version=1.1.0&request=GetFeature&typename=GIS:households&' +
                 'outputFormat=application/json&srsname=EPSG:4326&maxFeatures=1000&' +
                 'bbox=' + extent.join(',') + ',EPSG:4326';
         },
@@ -180,7 +246,17 @@ MapDesign.prototype.creatwardsSource = function() {
         format: new ol.format.GeoJSON(),
         url: function(extent) {
             return 'http://localhost:8080/geoserver/wfs?service=WFS&' +
-                'version=1.1.0&request=GetFeature&typename=Given:electoralwardsfortsh&' +
+                'version=1.1.0&request=GetFeature&typename=GIS:wards&' +
+                'outputFormat=application/json&srsname=EPSG:4326&' +
+                'bbox=' + extent.join(',') + ',EPSG:4326';
+        },
+        strategy: ol.loadingstrategy.bbox
+    });
+    this.WizardwardsSource = new ol.source.Vector({
+        format: new ol.format.GeoJSON(),
+        url: function(extent) {
+            return 'http://localhost:8080/geoserver/wfs?service=WFS&' +
+                'version=1.1.0&request=GetFeature&typename=GIS:wards&' +
                 'outputFormat=application/json&srsname=EPSG:4326&' +
                 'bbox=' + extent.join(',') + ',EPSG:4326';
         },
@@ -221,6 +297,10 @@ MapDesign.prototype.createFeatureLayer = function() {
         })
     });
     this.map.addLayer(this.featureLayer.layer);
+    this.mapTypeWizard1.addLayer(this.featureLayer.layer);
+    this.mapTypeWizard2.addLayer(this.featureLayer.layer);
+    this.mapTypeWizard3.addLayer(this.featureLayer.layer);
+    this.mapTypeWizard4.addLayer(this.featureLayer.layer);
 };
 
 MapDesign.prototype.createWardLayer = function() {
@@ -248,10 +328,17 @@ MapDesign.prototype.initializeMap = function() {
     this.map = new ol.Map({
         layers: [],
         target: 'map',
-        controls: ol.control.defaults({
-            attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
-                collapsible: false
-            })
+        controls: [],
+        interactions: ol.interaction.defaults({
+            doubleClickZoom :false,
+            dragAndDrop: false,
+            keyboardPan: false,
+            keyboardZoom: false,
+            mouseWheelZoom: false,
+            pointer: false,
+            select: false,
+            dragPan: false
+
         }),
         view: new ol.View({
             projection: 'EPSG:4326',
@@ -259,6 +346,95 @@ MapDesign.prototype.initializeMap = function() {
             zoom: 10
         })
     });
+
+    this.mapTypeWizard1 = new ol.Map({
+        layers: [],
+        target: '',
+        controls: [],
+        interactions: ol.interaction.defaults({
+            doubleClickZoom :false,
+            dragAndDrop: false,
+            keyboardPan: false,
+            keyboardZoom: false,
+            mouseWheelZoom: false,
+            pointer: false,
+            select: false,
+            dragPan: false
+
+        }),
+        view: new ol.View({
+            projection: 'EPSG:4326',
+            center: [28.5, -25.6], //map.getView().getCenter()
+            zoom: 8
+        })
+    });
+
+    this.mapTypeWizard2 = new ol.Map({
+        layers: [],
+        target: '',
+        controls: [],
+        interactions: ol.interaction.defaults({
+            doubleClickZoom :false,
+            dragAndDrop: false,
+            keyboardPan: false,
+            keyboardZoom: false,
+            mouseWheelZoom: false,
+            pointer: false,
+            select: false,
+            dragPan: false
+
+        }),
+        view: new ol.View({
+            projection: 'EPSG:4326',
+            center: [28.5, -25.6], //map.getView().getCenter()
+            zoom: 8
+        })
+    });
+
+    this.mapTypeWizard3 = new ol.Map({
+        layers: [],
+        target: '',
+        controls: [],
+        interactions: ol.interaction.defaults({
+            doubleClickZoom :false,
+            dragAndDrop: false,
+            keyboardPan: false,
+            keyboardZoom: false,
+            mouseWheelZoom: false,
+            pointer: false,
+            select: false,
+            dragPan: false
+
+        }),
+        view: new ol.View({
+            projection: 'EPSG:4326',
+            center: [28.5, -25.6], //map.getView().getCenter()
+            zoom: 8
+        })
+    });
+
+    this.mapTypeWizard4 = new ol.Map({
+        layers: [],
+        target: '',
+        controls: [],
+        interactions: ol.interaction.defaults({
+            doubleClickZoom :false,
+            dragAndDrop: false,
+            keyboardPan: false,
+            keyboardZoom: false,
+            mouseWheelZoom: false,
+            pointer: false,
+            select: false,
+            dragPan: false
+
+        }),
+        view: new ol.View({
+            projection: 'EPSG:4326',
+            center: [28.5, -25.6], //map.getView().getCenter()
+            zoom: 8
+        })
+    });
+    console.log("map initialization done");
 };
 
 MapDesign.prototype.setMapDisplayType = function(mapType) {
@@ -273,42 +449,31 @@ MapDesign.prototype.getVectorClasses = function() {
     return this.vectorLayerClasses;
 }
 
-//	Creates an array of unique values for a attribute which's name is passed
-MapDesign.prototype.getUniqueDiscreteValues = function(attributeTitle) {
-	var tempVectorLayerClasses = [];
-    this.vectorSource.forEachFeature(function(feature) {
-       if (tempVectorLayerClasses.indexOf(feature.get(attributeTitle)) == -1) {
-            tempVectorLayerClasses.push(feature.get(attributeTitle));
-        }
-    });
-    this.vectorLayerClasses = tempVectorLayerClasses;
-    return tempVectorLayerClasses;
-}
-MapDesign.prototype.calculateColorClass = function(vectorLayerClasses) {
-    if(vectorLayerClasses == undefined) {
-    	console.log("VectorlayerClasses is undefined, necessary in MD.calculateColorClass");
-    	return;
-    }
-    if(vectorLayerClasses.length <= 0) {
-    	console.log("VectorlayerClasses is empty, necessary in MD.calculateColorClass");
-    	return;
-    }
-    var tempColorClasses = [];
-    var classCount = vectorLayerClasses.length;
-    for (var i = 0; i < classCount; i++) {
-        tempColorClasses.push((i / classCount) * 360);
-    }
-    this.colorPerClass = tempColorClasses;
-    return tempColorClasses;
+MapDesign.prototype.calculateVectorClasses = function() {
+    // this.vectorSource.forEachFeature(function(feature) {
+    //    if (this.vectorLayerClasses.indexOf(feature.get(this.featureToDisplay)) == -1) {
+    //         this.vectorLayerClasses.push(feature.get(this.featureToDisplay));
+    //     }
+    // });
 }
 
-MapDesign.prototype.createMapElements = function() {
-	if (this.concreteMapBuilder == undefined) {
-		this.concreteMapBuilder = new ConcreteMapBuilder();
-	}
-	this.concreteMapBuilder.buildMapHeading();
-	this.concreteMapBuilder.buildMapLegend();
-	this.concreteMapBuilder.buildMapScale();
-	this.concreteMapBuilder.buildMapNorthArrow();
-	this.concreteMapBuilder.buildMapMetaData();
+MapDesign.prototype.calculateColorClass = function() {
+    // for (var i = 0; i < this.vectorLayerClasses.length; i++) {
+    //     this.colorPerClass.push((i / vectorClassCount) * 360);
+    // }
+    this.colorPerClass.push(0);
+    this.colorPerClass.push(90);
+    this.colorPerClass.push(180);
+    this.colorPerClass.push(270);
+    this.colorPerClass.push(330);
+    this.colorPerClass.push(10);
+    this.colorPerClass.push(10);
+    this.colorPerClass.push(10);
+    this.colorPerClass.push(10);
+    this.colorPerClass.push(10);
+    this.colorPerClass.push(10);
+    this.colorPerClass.push(10);
+    this.colorPerClass.push(10);
+    this.colorPerClass.push(10);
 }
+
