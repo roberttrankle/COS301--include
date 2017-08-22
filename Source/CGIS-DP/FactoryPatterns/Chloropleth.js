@@ -119,8 +119,28 @@ chloroplethCreator.prototype.createMap = function(map, vectorSource, wardsSource
     }
 };
 
-function chloroplethDesign() {
+function chloroplethDesign(map) {
+    this.map = new ol.Map({
+        layers: map.getLayers(),
+        target: '',
+        controls: [],
+        interactions: ol.interaction.defaults({
+            doubleClickZoom :false,
+            dragAndDrop: false,
+            keyboardPan: false,
+            keyboardZoom: false,
+            mouseWheelZoom: false,
+            pointer: false,
+            select: false,
+            dragPan: false
 
+        }),
+        view: new ol.View({
+            projection: 'EPSG:4326',
+            center: [28.5, -25.6], //map.getView().getCenter()
+            zoom: 8
+        })
+    });
 };
 
 chloroplethDesign.prototype = Object.create(MapDesign.prototype);
