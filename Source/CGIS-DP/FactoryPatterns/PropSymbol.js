@@ -14,9 +14,6 @@ PropSymbolCreator.prototype.createMap = function(map, vectorSource, wardsSource,
 
 		return;
 	}
-
-    PropSymbolDesign();
-
     // http://thematicmapping.org/playground/javascript/openlayers_propsymbols_geojson.js 
     var symbol = new ol.geom.Geometry('circle', 10, 1312978855);
 
@@ -103,14 +100,28 @@ PropSymbolCreator.prototype.createMap = function(map, vectorSource, wardsSource,
     // map.removeLayer(featureLayer);
 };
 
-function PropSymbolDesign() {
-    //MapDesign.call();
-    //console.log("PropSymbol constructor");
-    //this.StuffLater = /*mapInformation*/;
+function PropSymbolDesign(map) {
+        this.map = new ol.Map({
+        layers: map.getLayers(),
+        target: '',
+        controls: [],
+        interactions: ol.interaction.defaults({
+            doubleClickZoom :false,
+            dragAndDrop: false,
+            keyboardPan: false,
+            keyboardZoom: false,
+            mouseWheelZoom: false,
+            pointer: false,
+            select: false,
+            dragPan: false
 
-    /*Geoserver code to make map*/
-    /*openlayers code*/
-    /*convert map to image*/
+        }),
+        view: new ol.View({
+            projection: 'EPSG:4326',
+            center: [28.5, -25.6], //map.getView().getCenter()
+            zoom: 8
+        })
+    });
 };
 
 PropSymbolDesign.prototype = Object.create(MapDesign.prototype);
