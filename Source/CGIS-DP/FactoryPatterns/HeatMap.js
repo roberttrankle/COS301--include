@@ -14,9 +14,8 @@ HeatMapCreator.prototype.createMap = function(map, vectorSource, featureLayer){
 	//HeatMapDesign();
 };
 
-function HeatMapDesign(){
-	
+function HeatMapDesign(map) {
+		this.map = map;
 };
-
 HeatMapDesign.prototype = Object.create(MapDesign.prototype);
 HeatMapDesign.prototype.constructor = HeatMapDesign;
