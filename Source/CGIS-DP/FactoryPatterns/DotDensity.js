@@ -51,11 +51,12 @@ DotDensityCreator.prototype.createMap = function(map, vectorSource, colorPerClas
         source: vectorSource,
         style: vectorStyleFunction
     });
-    map.addLayer(featureLayer.layer);   
+    
+    map.addLayer(featureLayer.layer);
 };
 
-function DotDensityDesign(){
-	
+function DotDensityDesign(map) {
+	this.map = map;
 };
 
 DotDensityDesign.prototype = Object.create(MapDesign.prototype);
