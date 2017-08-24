@@ -22,10 +22,10 @@ var Quantile = function() {
    
 
     
-	    this.reclassify = new Array(tempVectorLayerClasses.length);
+	    var reclassify = new Array(tempVectorLayerClasses.length);
 	    k=0;
-	    for (k; k < this.reclassify.length ; k++ ){
-	        this.reclassify[k] = tempVectorLayerClasses[k];
+	    for (k; k < reclassify.length ; k++ ){
+	        reclassify[k] = tempVectorLayerClasses[k];
 	       // console.log(" feature :"+this.reclassify[k]);
 	       // console.log(" counter "+k);
 	    }
@@ -43,17 +43,17 @@ var Quantile = function() {
 	        while ( index < temp.length){
 	            k=0;
 	            for (k;k <boundaryPerClass;k++){
-	                this.reclassify[k]=index;
-	            console.log(this.reclassify[k] + " reclassified ");
+	                reclassify[k]=index;
+	            console.log(reclassify[k] + " reclassified ");
 	            }
-	            console.log(" about to reclassify");
+	           // console.log(" about to reclassify");
 	            index++;
 	        }
 	    }
 	    else {
 	        console.log( " Cannot find vectorSource");
 	    }
-	    return this.reclassify;
+	    return reclassify;
 
 };
 
