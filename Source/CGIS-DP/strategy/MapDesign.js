@@ -26,9 +26,34 @@ MapDesign.prototype.standardise = function() {
     //Code to call strategy method
 };
 
-MapDesign.prototype.classify = function() {
+/*MapDesign.prototype.classify = function() {
     //Code to classify the data
-};
+};*/
+
+MapDesign.prototype.classify = function(method, vectorSource, featureToDisplay, numberOfClasses) {
+    console.log("Executing classify()");
+    var classification = new Classification();
+
+    if(method == "equal interval"){
+        var equal_Interval = new EqualInterval();
+         
+        classification.setMethod(equal_Interval);
+    //    console.log(classification.output());
+        classification.execute(vectorSource, featureToDisplay, numberOfClasses);
+    }else if(method == "natural breaks"){
+        var natural_Breaks = new NaturalBreaks();
+         
+        classification.setMethod(natural_Breaks);
+       // console.log(classification.output());
+        classification.execute(vectorSource, featureToDisplay, numberOfClasses);
+    }else if(method == "quantile"){
+        var quantile = new Quantile();
+         
+        classification.setMethod(quantile);
+       // console.log(classification.output());
+        classification.execute(vectorSource, featureToDisplay, numberOfClasses);
+    }
+}
 
 MapDesign.prototype.render = function() {
     //render code
@@ -120,7 +145,7 @@ MapDesign.prototype.recursiveCreate = function(mapType) {
 	if (mapType == 1 || mapType == 3 || mapType == 4){
 		this.getUniqueDiscreteValues(this.featureToDisplay);
         //this.naturalBreaks(this.featureToDisplay, 2);
-       classify("quantile", this.vectorSource, this.featureToDisplay, 5);
+       this.classify("equal interval", this.vectorSource, this.featureToDisplay, 5);
 
 
         
