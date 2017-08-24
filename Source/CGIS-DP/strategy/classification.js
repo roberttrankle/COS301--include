@@ -35,30 +35,7 @@ Classification.prototype = {
 };
 
 
-function classify(method, vectorSource, featureToDisplay, numberOfClasses) {
-    console.log("Executing classify()");
-    var classification = new Classification();
 
-    if(method == "equal interval"){
-        var equal_Interval = new EqualInterval();
-         
-        classification.setMethod(equal_Interval);
-    //    console.log(classification.output());
-        classification.execute(vectorSource, featureToDisplay, numberOfClasses);
-    }else if(method == "natural breaks"){
-        var natural_Breaks = new NaturalBreaks();
-         
-        classification.setMethod(natural_Breaks);
-       // console.log(classification.output());
-        classification.execute(vectorSource, featureToDisplay, numberOfClasses);
-    }else if(method == "quantile"){
-        var quantile = new Quantile();
-         
-        classification.setMethod(quantile);
-       // console.log(classification.output());
-        classification.execute(vectorSource, featureToDisplay, numberOfClasses);
-    }
-}
 
 
 
