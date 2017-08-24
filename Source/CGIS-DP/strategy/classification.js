@@ -5,16 +5,12 @@ document.write('<script type="text/javascript" src="quantile.js"></script>');
 
 var Classification = function() {
     this.method = "";
-    this.numberOfClasses = "";
-    this.vectorSource = [];
 };
  
 Classification.prototype = {
-    setMethod: function(method, vectorSource) {
+    setMethod: function(method) {
+        console.log(method+"set successfully!");
         this.method = method;
-        this.vectorSource = vectorSource;
-
-        console.log(method+" set successfully");
     },
 
     addMethod: function(method){
@@ -29,13 +25,8 @@ Classification.prototype = {
     alert(method+' has been successfully added');
     },
 
-    get: function(method, vectorSource, attributeTitle, numberOfClasses){
-        if(method == "equalInterval"){
-            console.log("Inside get"+method);
-            var equal_Interval = new EqualInterval();
-            var array = equal_Interval.output(vectorSource, attributeTitle, numberOfClasses);
-            return array;
-        }
+    execute: function(vectorSource, featureToDisplay, numberOfClasses) {
+        return this.method.execute(vectorSource, featureToDisplay, numberOfClasses);
     },
  
     output: function() {
@@ -44,37 +35,39 @@ Classification.prototype = {
 };
 
 
-/* 
-var EqualInterval = function() {
-    this.output = function() {
-        // calculations...
-        return "I am Equal Interval";
-    }
-};
- 
-var NaturalBreaks = function() {
-    this.output = function() {
-        // calculations...
-        return "I am Natural Breaks";
-    }
-};
- 
-var Quantile = function() {
-    this.output = function() {
-        // calculations...
-        return "I an Quantile";
-    }
-};
+function classify(method, vectorSource, featureToDisplay, numberOfClasses) {
+    console.log("Executing classify()");
+    var classification = new Classification();
 
-*/
+    if(method == "equal interval"){
+        var equal_Interval = new EqualInterval();
+         
+        classification.setMethod(equal_Interval);
+    //    console.log(classification.output());
+        classification.execute(vectorSource, featureToDisplay, numberOfClasses);
+    }else if(method == "natural breaks"){
+        var natural_Breaks = new NaturalBreaks();
+         
+        classification.setMethod(natural_Breaks);
+       // console.log(classification.output());
+        classification.execute(vectorSource, featureToDisplay, numberOfClasses);
+    }else if(method == "quantile"){
+        var quantile = new Quantile();
+         
+        classification.setMethod(quantile);
+       // console.log(classification.output());
+        classification.execute(vectorSource, featureToDisplay, numberOfClasses);
+    }
+}
+
+
+
+/*
 
 function run() {
  
     // the 3 classification methods
     
-  /*
-  			adding new classification methods to a list
-  */
     
     var equal_Interval = new EqualInterval();
     var natural_Breaks = new NaturalBreaks();
@@ -84,7 +77,6 @@ function run() {
  
     classification.setMethod(equal_Interval);
     alert("equal_Interval classification method: " + classification.output());
-    console.log("outputting: "+quantile.output());
     
     classification.setMethod(natural_Breaks);
    alert("natural_Breaks classification method: " + classification.output());
@@ -98,12 +90,13 @@ function run() {
 
     alert("testing classification method: " + classification.output());
  
-}
+}*/
 
 //run();
 
-
+/*
 function newClassification() {
     var classification = new Classification();
     classification.addMethod('testing');
 }
+*/
