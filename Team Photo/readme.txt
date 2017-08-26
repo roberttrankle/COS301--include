@@ -1,0 +1,1 @@
+Group photo of team #include 2017 @UP
