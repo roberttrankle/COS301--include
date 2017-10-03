@@ -1,0 +1,877 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"mapt",
+				"mapTypeWizard1"
+			],
+			[
+				"sym",
+				"symbolSource"
+			],
+			[
+				"chlo",
+				"createChloroWardSource"
+			],
+			[
+				"chl",
+				"chloroWardsSource"
+			],
+			[
+				"wiza",
+				"WizardwardsSource"
+			],
+			[
+				"war",
+				"wardsVectorLayer"
+			],
+			[
+				"ch",
+				"chloroVectorLayers"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"map",
+				"mapType"
+			],
+			[
+				"load",
+				"loadWizardMaps"
+			],
+			[
+				"se",
+				"setAttrValue"
+			],
+			[
+				"crea",
+				"createDate"
+			],
+			[
+				"vector",
+				"vectorSourceTypeName"
+			],
+			[
+				"set",
+				"setZoom"
+			],
+			[
+				"session",
+				"sessionStorage"
+			],
+			[
+				"mapT",
+				"mapTypeSelected"
+			],
+			[
+				"conc",
+				"concreteMapArray"
+			],
+			[
+				"SELECTED",
+				"selectedValue"
+			],
+			[
+				"reD",
+				"readyLayerCount"
+			],
+			[
+				"reA",
+				"readyLayerCount"
+			],
+			[
+				"read",
+				"readyLayerCount"
+			],
+			[
+				"rea",
+				"readyLayerCount"
+			],
+			[
+				"c",
+				"callback"
+			],
+			[
+				"ma",
+				"mapType"
+			],
+			[
+				"cal",
+				"callback"
+			],
+			[
+				"imag",
+				"image_data"
+			],
+			[
+				"loa",
+				"loadWizardMaps"
+			],
+			[
+				"page",
+				"pageToLoad"
+			],
+			[
+				"call",
+				"callback"
+			],
+			[
+				"done",
+				"doneLoading"
+			],
+			[
+				"remov",
+				"removeLayers"
+			],
+			[
+				"fe",
+				"featureToDisplay"
+			],
+			[
+				"sele",
+				"selectedValue"
+			],
+			[
+				"sel",
+				"selectedValue"
+			],
+			[
+				"wiz",
+				"WizardwardsSource"
+			],
+			[
+				"pro",
+				"promise2"
+			],
+			[
+				"laod",
+				"loadMap"
+			],
+			[
+				"remo",
+				"removeLayers"
+			],
+			[
+				"DD",
+				"DDMap"
+			],
+			[
+				"wards",
+				"wardsVectorLayer"
+			],
+			[
+				"l",
+				"l"
+			],
+			[
+				"ward",
+				"wardsVectorLayer"
+			],
+			[
+				"wa",
+				"wards"
+			],
+			[
+				"Deleted",
+				"DeletedPostgrad"
+			],
+			[
+				"stude",
+				"student_Number"
+			],
+			[
+				"stud",
+				"student_Number"
+			],
+			[
+				"st",
+				"student_Number"
+			],
+			[
+				"vecto",
+				"vectorClasses"
+			],
+			[
+				"vec",
+				"vectorClasses"
+			],
+			[
+				"colo",
+				"colorPerClass"
+			],
+			[
+				"color",
+				"colorClass"
+			],
+			[
+				"default",
+				"defaultMap"
+			],
+			[
+				"ve",
+				"vectorSource"
+			],
+			[
+				"co",
+				"console"
+			],
+			[
+				"feat",
+				"featureToDisplay"
+			],
+			[
+				"fea",
+				"featureLayer"
+			],
+			[
+				"get",
+				"getVectorClasses"
+			],
+			[
+				"cons",
+				"console"
+			],
+			[
+				"dea",
+				"defaultMap"
+			],
+			[
+				"re",
+				"returnString"
+			],
+			[
+				"RE",
+				"RETURN"
+			],
+			[
+				"RETUR",
+				"RETURN"
+			],
+			[
+				"cours",
+				"coursecode"
+			],
+			[
+				"RET",
+				"RETURNS"
+			],
+			[
+				"year",
+				"yearOfStudy"
+			],
+			[
+				"defaul",
+				"defaultMap"
+			],
+			[
+				"creat",
+				"createWardLayer"
+			],
+			[
+				"cre",
+				"createVectorSource"
+			],
+			[
+				"proo",
+				"prototype"
+			],
+			[
+				"Map",
+				"MapDesign"
+			],
+			[
+				"Mapre",
+				"MapCreator"
+			],
+			[
+				"dis",
+				"display"
+			],
+			[
+				"admin",
+				"adminLogin"
+			],
+			[
+				"login",
+				"loginForm"
+			],
+			[
+				"getE",
+				"getElementById"
+			],
+			[
+				"btn",
+				"btn-default"
+			],
+			[
+				"layer",
+				"layerCount"
+			],
+			[
+				"add",
+				"addLayer"
+			],
+			[
+				"col",
+				"colorPerClass"
+			],
+			[
+				"count",
+				"countPerWard"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/index.html",
+			"settings":
+			{
+				"buffer_size": 10871,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/js/map.js",
+			"settings":
+			{
+				"buffer_size": 7032,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/FactoryPatterns/MapDesign.js",
+			"settings":
+			{
+				"buffer_size": 22484,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/FactoryPatterns/Chloropleth.js",
+			"settings":
+			{
+				"buffer_size": 5338,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/FactoryPatterns/PropSymbol.js",
+			"settings":
+			{
+				"buffer_size": 4711,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/FactoryPatterns/DotDensity.js",
+			"settings":
+			{
+				"buffer_size": 2234,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/rob/Documents/COS326/Practicals/Prac5/loadQueries.sql",
+		"/C/Users/rob/Documents/COS326/Practicals/Prac5/selectQueries.sql",
+		"/C/Users/rob/Downloads/u15095682_cos326_p5/selectQueries.sql",
+		"/C/Users/rob/Downloads/u15095682_cos326_p5/loadQueries.sql",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/FactoryPatterns/PropSymbol.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/FactoryPatterns/DotDensity.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/FactoryPatterns/MapDesign.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/js/map.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/index.html",
+		"/C/Users/rob/Downloads/24_August_21h00/index.html",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/FactoryPatterns/defaultMap.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/js/index.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/FactoryPatterns/HeatMap.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/FactoryPatterns/Chloropleth.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/js/canvas2image.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Wizard(p2)/js/map.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Wizard(p2)/FactoryPatterns/MapDesign.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/FactoryPatterns/MapCreator.js",
+		"/C/Users/rob/Downloads/23_August_12h00/FactoryPatterns/MapDesign.js",
+		"/C/Users/rob/Downloads/CGIS-Wizard(p2)/index.html",
+		"/C/Users/rob/Downloads/CGIS-Wizard(p2)/js/map.js",
+		"/C/Users/rob/Downloads/CGIS-Wizard(p2)/js/index.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/js/sidemenu.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/js/image-picker.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/js/html2canvas.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/js/validate.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/js/license.txt",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/js/image-picker.min.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/FactoryPatterns/tempMD.js",
+		"/C/Users/rob/Documents/COS326/Practicals/Prac4/Musicians.xml",
+		"/C/Users/rob/Documents/COS326/Practicals/Prac4/XQueries.txt",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/css/style.css",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/temp/temp.html",
+		"/C/Users/rob/Downloads/UI/proto-SideMenu.html",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/map.js",
+		"/C/Users/rob/Downloads/map.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/mapTemp.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/proto-SideMenu.html",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/proto.css",
+		"/C/Users/rob/Documents/COS326/Practicals/Prac3/TestTriggerQueries.sql",
+		"/C/Users/rob/Documents/COS326/Practicals/Prac3/SelectQueries.sql",
+		"/C/Users/rob/Documents/COS326/Practicals/Prac3/InsertQueries.sql",
+		"/C/Users/rob/Documents/COS326/Practicals/Prac3/CreateStatements.sql",
+		"/C/Users/rob/Downloads/u15095682_cos326_p3/TestTriggerQueries.sql",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/Factory.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/style.css",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/FactoryPatterns/choropleth.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/html2canvas.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/canvas2image.js",
+		"/C/Users/rob/Downloads/u15095682_cos326_p3/SelectQueries.sql",
+		"/C/Users/rob/Downloads/u15095682_cos326_p3/InsertQueries.sql",
+		"/C/Users/rob/Downloads/u15095682_cos326_p3/CreateStatements.sql",
+		"/C/Users/rob/Documents/COS326/Practicals/Prac2/CreateStatements.sql",
+		"/C/Users/rob/Documents/COS326/Practicals/Prac2/SelectQueries.sql",
+		"/C/Users/rob/Documents/COS326/Practicals/Prac2/InsertQueries.sql",
+		"/C/Users/rob/Downloads/u15095682_cos326_p3/eerd.jpg",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/validate.js",
+		"/C/Users/rob/Documents/Inform/Projects/COS330_p1.inform/Source/story.ni",
+		"/C/Users/rob/Downloads/CreateStatements (3).sql",
+		"/C/Users/rob/Downloads/SelectQueries.sql",
+		"/C/Users/rob/Downloads/CreateStatements (2).sql",
+		"/C/Users/rob/Downloads/InsertQueries.sql",
+		"/C/Users/rob/Downloads/CreateStatements.sql",
+		"/C/Users/rob/Downloads/drive-download-20170731T082251Z-001/Chocolate.cpp",
+		"/C/Users/rob/Downloads/drive-download-20170731T082251Z-001/ChocolateTest.cpp",
+		"/C/Users/rob/Downloads/drive-download-20170731T082251Z-001/Chocolate.h",
+		"/C/Users/rob/Downloads/drive-download-20170731T082251Z-001/FactoryMethod.vpp",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/Demo2/map.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/UI/include-ext.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/marker-icon.png",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/.gitIgnore",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/main.html",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/bernard.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/Prototype1.png",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/proto.html",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/north-image.jpg",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/UI/proto-SideMenu.html",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/UI/proto.html",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/UI/proto.css",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/UI/map.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/DesignPatterns/Factory.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/UI/bernard.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/UI/style.css",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/UI/geoext2-2.1.0/examples/legendpanel/legendpanel.html",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/UI/geoext2-2.1.0/examples/legendpanel/legendpanel.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/UI/validate.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/UI/canvas2image.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/UI/html2canvas.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/UI/Canvas2Image.js",
+		"/C/Users/rob/Documents/COS301/#include/Implemntation/UI/geoext3-master/README.md",
+		"/C/Program Files (x86)/GeoServer 2.11.1/data_dir/data/shapefiles/households.dbf",
+		"/C/Users/rob/Downloads/drive-download-20170720T075054Z-001/Chocolate.cpp",
+		"/C/Users/rob/Downloads/drive-download-20170720T075054Z-001/ChocolateTest.cpp",
+		"/C/Users/rob/Downloads/drive-download-20170720T075054Z-001/Chocolate.h"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"wardsSource",
+			"rc",
+			"load",
+			"attributeValuesObject",
+			"crea",
+			"ATTR",
+			"radius",
+			"initia",
+			"read",
+			"conver",
+			"convert",
+			");\n",
+			"mapcreation",
+			"mapcrea",
+			"load",
+			"loadmap",
+			"selectedValue",
+			"loadmap",
+			"selected",
+			"wardsSource",
+			"symbolsource",
+			"\");\n",
+			"{\n",
+			"qweryu",
+			"this.map",
+			"loadMap",
+			"settime",
+			"();\n",
+			"html2can",
+			"map",
+			"this.map",
+			"layer",
+			"createWa",
+			"layer",
+			"wardSource",
+			"consol",
+			"on",
+			"yearOfStudy",
+			"101122",
+			"hue",
+			"push",
+			"this.map",
+			"tileLayer",
+			";\n",
+			"degreeCode",
+			"student_number",
+			"cource",
+			"DOmain",
+			");\n",
+			" \"",
+			"());",
+			"        \n",
+			");\n",
+			"remove",
+			");\n",
+			"map",
+			"=\"",
+			"console",
+			"yes",
+			"\"yes\"",
+			"Canvas2Image",
+			"}\n"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"map.key",
+			"this.map.key",
+			"wardsSource",
+			"map"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10871,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10442,
+								10442
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3677.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/js/map.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7032,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								576,
+								576
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 12.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/FactoryPatterns/MapDesign.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 22484,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9683,
+								9683
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3992.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/FactoryPatterns/Chloropleth.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5338,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1197,
+								1280
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 432.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/FactoryPatterns/PropSymbol.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4711,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								303,
+								315
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/C/Users/rob/Documents/COS301/#include/Implemntation/CGIS-Intergrated/FactoryPatterns/DotDensity.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2234,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								822,
+								822
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 378.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "cgis.sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

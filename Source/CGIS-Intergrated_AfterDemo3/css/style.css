@@ -1,0 +1,325 @@
+/*custom font*/
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+/*basic reset*/
+* {margin: 0; padding: 0;}
+
+/*form styles*/
+#msform {
+	width: 85%;
+	margin: 50px auto;
+	text-align: center;
+	position: relative;
+}
+#msform fieldset {
+	background: white;
+	border: 0 none;
+	border-radius: 3px;
+	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+	padding: 20px 30px;
+	box-sizing: border-box;
+	width: 80%;
+	margin: 0 10%;
+	
+	/*stacking fieldsets above each other*/
+	position: relative;
+}
+/*Hide all except first fieldset*/
+#msform fieldset:not(:first-of-type) {
+	display: none;
+}
+/*inputs*/
+#msform input, #msform textarea {
+	padding: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-bottom: 10px;
+	width: 100%;
+	box-sizing: border-box;
+	font-family: montserrat;
+	color: #2C3E50;
+	font-size: 13px;
+}
+/*buttons*/
+#msform .action-button {
+	width: 100px;
+	background: #27AE60;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	padding: 10px 5px;
+	margin: 10px 5px;
+}
+#msform .action-button:hover, #msform .action-button:focus {
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+}
+
+/*headings*/
+.fs-title {
+	font-size: 15px;
+	text-transform: uppercase;
+	color: #2C3E50;
+	margin-bottom: 10px;
+}
+.fs-subtitle {
+	font-weight: normal;
+	font-size: 13px;
+	color: #666;
+	margin-bottom: 20px;
+}
+/*progressbar*/
+#progressbar {
+	margin-bottom: 30px;
+	margin-top: 30px;
+	overflow: hidden;
+	/*CSS counters to number the steps*/
+	counter-reset: step;
+}
+#progressbar li {
+	list-style-type: none;
+	color: #27AE60;
+	text-transform: uppercase;
+	font-size: 9px;
+	width: 25%;
+	float: left;
+	position: relative;
+}
+#progressbar li:before {
+	content: counter(step);
+	counter-increment: step;
+	width: 30px;
+	line-height: 30px;
+	display: block;
+	font-size: 12px;
+	color: #27AE60;
+	background: #d8d8d8;
+	border-radius: 15px;
+	margin: 0 auto 5px auto;
+}
+/*progressbar connectors*/
+#progressbar {
+	white-space: nowrap;
+	display: inline-block;
+}
+#progressbar li:after {
+	content: '';
+	width: 100%;
+	height: 4px;
+	background: #d8d8d8;
+	position: absolute;
+	left: -50%;
+	top: 9px;
+	z-index: -1; /*put it behind the numbers*/
+}
+#progressbar li:first-child:after {
+	/*connector not needed before the first step*/
+	content: none; 
+}
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#progressbar li.active:before,  #progressbar li.active:after{
+	background: #27AE60;
+	color: white;
+}
+
+
+/******************************/
+
+body {
+	background-color: #3f3f3f;
+}
+
+h1 {
+	color: #27AE60;
+	
+}
+h2 {
+	color: #747574;
+	top: 10px;
+	
+}
+
+table {
+	border: 1px solid black;
+	height: 10px;
+	overflow: scroll;
+	width: 100%;
+}
+
+thead, tbody, tr, td, th { display: block; }
+
+tr:after {
+	content: ' ';
+	display: block;
+	visibility: hidden;
+	clear: both;
+}
+
+thead th {
+	text-align: center;
+	height: 40px;
+	background-color:#27AE60;
+}
+
+tbody {
+	height: 120px;
+	overflow-y: auto;
+	background-color:white;
+}
+
+tbody td, thead th {
+	width: 50%;
+	float: left;
+}
+
+#menubutton {
+	position: absolute;
+	float: left;
+	text-align: left;
+	/*//margin-top: 20%;*/
+	color: black;
+	height:90%;
+	width:30px;
+	background-color:#fffs;
+	z-index: 1;
+}
+
+#menubutton :hover {
+	
+}
+
+.menu {
+	height: 90%;
+    width: 0; 
+    position: fixed;
+    top: 5;
+    left: 0;
+	padding-bottom:20px;
+    background-color: #fff; 
+    overflow-x: hidden; 
+    transition: 0.5s; 
+	z-index: 2;
+}
+
+.menu .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+#mapArea {
+	position:fixed;
+	height:90%;
+	width:99.9%;
+}
+
+#map {
+	position:relative;
+	height:100%;
+}
+
+#legend {
+	position:absolute;
+	background-color: #fff;
+	z-index: 3;
+	right: 0;
+	width: 250px;
+	word-wrap: break-word;
+}
+
+#pf {
+	visibility: visible;
+}
+
+a.skiplink {
+	position: absolute;
+	clip: rect(1px, 1px, 1px, 1px);
+	padding: 0;
+	border: 0;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+}
+a.skiplink:focus {
+	clip: auto;
+	height: auto;
+	width: auto;
+	background-color: #fff;
+	padding: 0.3em;
+}
+#map:focus {
+	outline: #4A74A8 solid 0.15em;
+}
+
+#standardization {
+	padding: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-bottom: 10px;
+	width: 100%;
+	box-sizing: border-box;
+	font-family: montserrat;
+	color: #2C3E50;
+	font-size: 13px;
+}
+#colorScheme{
+	padding: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-bottom: 10px;
+	width: 100%;
+	box-sizing: border-box;
+	font-family: montserrat;
+	color: #2C3E50;
+	font-size: 13px;
+}
+
+.images_list li {
+	list-style: none;
+	/*float: left;*/
+	width: 280px;
+	height: 200px;
+	/*margin-right: 10px;*/
+}
+
+#right {
+	float: right;
+
+}
+
+.images_list li span {
+    display:none;
+	position:absolute;
+    top:0px;
+    left:0px;
+	width:24px;
+	height:24px;    
+}
+
+.border {
+	border: 6px solid #D8D8D8;
+	background: url(../check_mark.png);
+}
+.selected {
+	border: 6px solid green;
+    position:relative;
+}
+.hidden {
+    display:none;
+}
+.images_list li.selected span {
+    display:block;
+}
+
+label {
+  display: block;
+}
