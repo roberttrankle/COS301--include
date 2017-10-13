@@ -1037,7 +1037,7 @@ MapDesign.prototype.recursiveWaitAndList = function() {
         for (var i = 0; i < this.uniqueAttributeValues.length; i++) {
             // check if value not null
             if (this.uniqueAttributeValues[i] != undefined && this.uniqueAttributeValues[i].trim()) {
-                document.getElementById("attrValue").innerHTML += "<option value = \"" + (i + 1) + "\" >" + this.uniqueAttributeValues[i] + "</option><br>";
+                document.getElementById("attrValue").innerHTML += "<option value = \"" + i + 1 + "\" >" + this.uniqueAttributeValues[i] + "</option><br>";
             }
         }
 
