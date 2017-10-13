@@ -1,0 +1,856 @@
+/*custom font*/
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+
+/*basic reset*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+/*form styles*/
+
+#msform {
+    width: 85%;
+    margin: 50px auto;
+    text-align: center;
+    position: relative;
+}
+
+#msform fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 3px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    padding: 20px 30px;
+    box-sizing: border-box;
+    width: 90%;
+    margin: 0 10%;
+
+    /*stacking fieldsets above each other*/
+    position: relative;
+}
+
+
+/*Hide all except first fieldset*/
+
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+
+
+/*inputs*/
+
+#msform input,
+#msform textarea {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    font-size: 13px;
+}
+
+
+/*buttons*/
+
+#msform .action-button {
+    width: 100px;
+    background: #27AE60;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 1px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+#msform .action-button:hover,
+#msform .action-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+}
+
+
+/*headings*/
+
+.fs-title {
+    font-size: 15px;
+    text-transform: uppercase;
+    color: #2C3E50;
+    margin-bottom: 10px;
+}
+
+.fs-subtitle {
+    font-weight: normal;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+
+/*progressbar*/
+
+#progressbar {
+    margin-bottom: 30px;
+    margin-top: 30px;
+    overflow: hidden;
+    /*CSS counters to number the steps*/
+    counter-reset: step;
+}
+
+#progressbar li {
+    list-style-type: none;
+    color: #27AE60;
+    text-transform: uppercase;
+    font-size: 9px;
+    width: 25%;
+    float: left;
+    position: relative;
+}
+
+#progressbar li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 30px;
+    line-height: 30px;
+    display: block;
+    font-size: 12px;
+    color: #27AE60;
+    background: #d8d8d8;
+    border-radius: 15px;
+    margin: 0 auto 5px auto;
+}
+
+
+/*progressbar connectors*/
+
+#progressbar {
+    white-space: nowrap;
+    display: inline-block;
+}
+
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 4px;
+    background: #d8d8d8;
+    position: absolute;
+    left: -50%;
+    top: 9px;
+    z-index: -1;
+    /*put it behind the numbers*/
+}
+
+#progressbar li:first-child:after {
+    /*connector not needed before the first step*/
+    content: none;
+}
+
+
+/*marking active/completed steps green*/
+
+
+/*The number of the step and the connector before it = green*/
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+    background: #27AE60;
+    color: white;
+}
+
+
+
+/******************************/
+
+body {
+    background-color: #3f3f3f;
+}
+
+h1 {
+    color: #27AE60;
+}
+
+h2 {
+    color: #747574;
+    top: 10px;
+}
+
+table {
+    border: 1px solid black;
+    height: 10px;
+    overflow: scroll;
+    width: 100%;
+}
+
+thead,
+tbody,
+tr,
+td,
+th {
+    display: block;
+}
+
+tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+thead th {
+    text-align: center;
+    height: 40px;
+    background-color: #27AE60;
+}
+
+tbody {
+    height: 120px;
+    overflow-y: auto;
+    background-color: white;
+}
+
+tbody td,
+thead th {
+    width: 50%;
+    float: left;
+}
+
+#menubutton {
+    position: absolute;
+    float: left;
+    text-align: left;
+    /*//margin-top: 20%;*/
+    color: black;
+    height: 90%;
+    width: 30px;
+    background-color: #fffs;
+    z-index: 1;
+}
+
+#menubutton :hover {}
+
+.menu {
+    height: 90%;
+    width: 0;
+    position: fixed;
+    top: 5;
+    left: 0;
+    padding-bottom: 20px;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    z-index: 2;
+}
+
+.menu .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+#mapArea {
+    position: fixed;
+    height: 90%;
+    width: 99.9%;
+}
+
+#map {
+    position: relative;
+    height: 100%;
+}
+
+#legend {
+    position: absolute;
+    background-color: #fff;
+    z-index: 3;
+    right:1%;
+    width: 250px;
+    word-wrap: break-word;
+}
+
+#collapse1{
+    max-height: 400px;
+    overflow: auto; 
+}
+
+
+#pf {
+    visibility: visible;
+}
+
+a.skiplink {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+a.skiplink:focus {
+    clip: auto;
+    height: auto;
+    width: auto;
+    background-color: #fff;
+    padding: 0.3em;
+}
+
+#map:focus {
+    outline: #4A74A8 solid 0.15em;
+}
+
+#standardization {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    font-size: 13px;
+}
+
+#colorScheme {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    font-size: 13px;
+}
+
+.images_list li {
+    list-style: none;
+    /*float: left;*/
+    width: 100%;
+    height: 200px;
+    /*margin-right: 10px;*/
+}
+
+.images_list2 li {
+    list-style: none;
+    /*float: left;*/
+    width: 100%;
+    height: 200px;
+    /*margin-right: 10px;*/
+}
+
+.images_list3 li {
+    list-style: none;
+    /*float: left;*/
+    width: 100%;
+    height: 200px;
+    /*margin-right: 10px;*/
+}
+
+#right {
+    float: right;
+}
+
+.images_list li span {
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 24px;
+    height: 24px;
+}
+
+.images_list2 li span {
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 24px;
+    height: 24px;
+}
+
+.images_list3 li span {
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 24px;
+    height: 24px;
+}
+
+.border {
+    border: 6px solid #D8D8D8;
+    background: url(../check_mark.png);
+}
+
+.selected {
+    border: 6px solid green;
+    position: relative;
+}
+
+.hidden {
+    display: none;
+}
+
+.images_list li.selected span {
+    display: block;
+}
+
+.images_list2 li.selected span {
+    display: block;
+}
+
+.images_list3 li.selected span {
+    display: block;
+}
+
+label {
+    display: block;
+}
+
+
+
+/*Cite: https://www.w3schools.com/cssref/css3_pr_column-count.asp*/
+
+p {
+    color: #747574;
+    display: inline;
+    font-size: 15px;
+}
+
+
+
+@-webkit-keyframes wobble {
+    16.65% {
+        -webkit-transform: translateY(8px);
+        transform: translateY(8px);
+    }
+    33.3% {
+        -webkit-transform: translateY(-6px);
+        transform: translateY(-6px);
+    }
+    49.95% {
+        -webkit-transform: translateY(4px);
+        transform: translateY(4px);
+    }
+    66.6% {
+        -webkit-transform: translateY(-2px);
+        transform: translateY(-2px);
+    }
+    83.25% {
+        -webkit-transform: translateY(1px);
+        transform: translateY(1px);
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+@keyframes wobble {
+    16.65% {
+        -webkit-transform: translateY(8px);
+        -ms-transform: translateY(8px);
+        transform: translateY(8px);
+    }
+    33.3% {
+        -webkit-transform: translateY(-6px);
+        -ms-transform: translateY(-6px);
+        transform: translateY(-6px);
+    }
+    49.95% {
+        -webkit-transform: translateY(4px);
+        -ms-transform: translateY(4px);
+        transform: translateY(4px);
+    }
+    66.6% {
+        -webkit-transform: translateY(-2px);
+        -ms-transform: translateY(-2px);
+        transform: translateY(-2px);
+    }
+    83.25% {
+        -webkit-transform: translateY(1px);
+        -ms-transform: translateY(1px);
+        transform: translateY(1px);
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+.wobble {
+
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    /*box-shadow: 0 0 1px rgba(0, 0, 0, 0);*/
+}
+
+.wobble:hover {
+    -webkit-animation-name: wobble;
+    animation-name: wobble;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+}
+
+.pulsate:hover {
+    -webkit-animation: pulsate 3s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    opacity: 0.5;
+}
+
+@-webkit-keyframes pulsate {
+    0% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1.0;
+    }
+    100% {
+        opacity: 0.5;
+    }
+}
+
+
+
+/*Cite: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_image_grid*/
+
+
+/* Create 4 equal columns that floats next to each other */
+
+.column {
+    float: left;
+    width: 25%;
+    padding: 1%;
+}
+
+.column img {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+
+.column1 {
+    float: left;
+    width: 80%;
+    padding: 1%;
+}
+
+.column1 img {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+
+
+/* Clear floats after the columns */
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.classificationRow {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.column2 {
+    float: left;
+    text-align: left;
+    width: 50%;
+    padding: 1%;
+}
+
+
+.column3 {
+    float: left;
+    width: 33%;
+    padding: 1%;
+}
+
+.column3 img {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+
+#metaData {
+    width: 95.5%;
+    height: 4%;
+    z-index: 3;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    background-color: #DCDCDC;
+    position: fixed;
+    bottom: 2%;
+    /*left: 10%;*/
+    text-align: center;
+    opacity: 0.1;
+}
+
+#metaData:hover {
+    opacity: 0.8;
+}
+
+#downloadButton {
+    position: fixed;
+    bottom: 2%;
+    left: 87%;
+    z-index: 3;
+}
+
+#restartButton {
+    position: fixed;
+    bottom: 2%;
+    right: 83%;
+    z-index: 3;
+}
+
+/*Cite: https://www.w3schools.com/css/tryit.asp?filename=trycss_buttons_hover*/
+.button {
+    float: right;
+    background-color: #27AE60; /* Green */
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.downloadButton {
+    background-color: #27AE60; 
+    color: black; 
+    border: 2px solid #4CAF50;
+}
+
+.downloadButton:hover {
+    background-color: #33ffad;
+    /*color: white;*/
+}
+
+.metaParagraph {
+    color: black;
+    padding-left: 2%;
+}
+
+.sidenav {
+    height: 100%;
+
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 25px;
+
+    bottom: 2%;
+    right: 0%;
+    z-index: 3;
+}
+
+.sidenav a {
+    padding: 0px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+/*.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}*/
+
+.sidenav h3{
+    /*text-align: center;*/
+    margin-left: 10px;
+}
+
+.sidenav p{
+    margin-left: 20px;
+}
+
+.sidenav hr{
+    
+}
+
+.sidenav .btn{
+     position: absolute;
+     bottom: 8%;
+     background: #27AE60;
+     border: 0;
+}
+
+
+
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.metaClickable:hover {
+   /* color: #4CAF50;*/
+    opacity: 0.8;
+}
+
+.menu2 {
+    height: 98%;
+    width: 0;
+    position: fixed;
+    top: 5;
+    right: 0;
+    padding-bottom: 20px;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    z-index: 2;
+}
+
+.menu2 .closebtn2 {
+    position: absolute;
+    top: 0;
+    right: 2%;
+    font-size: 36px;
+   /* margin-right: 50px;*/
+}
+
+#menubutton2 {
+    position: absolute;
+    float: right;
+    text-align: right;
+    right: 0;
+    color: black;
+    height: 90%;
+    width: 30px;
+    background-color: #fffs;
+    z-index: 1;
+}
+
+#menubutton2 :hover {}
+
+
+/*Loading icon*/
+@keyframes lds-dual-ring {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes lds-dual-ring {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes lds-dual-ring_reverse {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+  }
+}
+@-webkit-keyframes lds-dual-ring_reverse {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+  }
+}
+
+#loadingIcon1 {
+    float: right;
+    padding-right: 60%;
+    /*top: 10%;*/
+}
+
+#loadingIcon2 {
+    float: right;
+    padding-right: 62%;
+    /*top: 20%;*/
+}
+
+#loadingIcon3 {
+    float: right;
+    padding-right: 75%;
+    /*top: 28%;*/
+}
+
+.lds-dual-ring {
+  position: relative;
+}
+.lds-dual-ring div {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  /*top: 20px;*/
+  left: 20px;
+  border-radius: 50%;
+  border: 8px solid #000;
+  border-color: #18ba60 transparent #18ba60 transparent;
+  -webkit-animation: lds-dual-ring 1.8s linear infinite;
+  animation: lds-dual-ring 1.8s linear infinite;
+}
+.lds-dual-ring div:nth-child(2) {
+  width: 140px;
+  height: 140px;
+  top: 10px;
+  left: 30px;
+  border-color: transparent #2bdb79 transparent #2bdb79;
+  -webkit-animation: lds-dual-ring_reverse 1.8s linear infinite;
+  animation: lds-dual-ring_reverse 1.8s linear infinite;
+}

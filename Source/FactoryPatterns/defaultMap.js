@@ -1,19 +1,21 @@
 //Concrete Creator
 function defaultMapCreator() {
-	// console.log("default Map being created.");
 };
 
 defaultMapCreator.prototype = Object.create(MapCreator.prototype);
 defaultMapCreator.prototype.constructor = defaultMapCreator;
 
+/**
+ * Creates and adds a tile layer.
+ *
+ * @param      {ol.map}  map     The map
+ */
 defaultMapCreator.prototype.createMap = function(map) {
-    // console.log("DisplayDEFAULTMAP");
     this.tileLayer = new ol.layer.Tile({ source: new ol.source.OSM() });
     map.addLayer(this.tileLayer);
 };
 
 function defaultMapDesign() {
-	//JPEG PRODUCT YO
 };
 
 defaultMapDesign.prototype = Object.create(MapDesign.prototype);

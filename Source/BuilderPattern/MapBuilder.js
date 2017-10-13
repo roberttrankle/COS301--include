@@ -1,3 +1,7 @@
+/**
+ * Abstact class for the Builder method 
+ *
+ */
 function MapBuilder() {
 	//verander
 	// if(type == "HeatMap"){
@@ -12,7 +16,7 @@ function MapBuilder() {
 
 //Pure Virtual
 MapBuilder.prototype.buildMapHeading = function() {};
-MapBuilder.prototype.buildMapLegend = function() {};
+MapBuilder.prototype.buildMapLegend = function(colorPerClass, vectorLayerClasses, selectedValue) {};
 MapBuilder.prototype.buildMapScale = function() {};
 MapBuilder.prototype.buildMapNorthArrow = function() {};
 MapBuilder.prototype.buildMapMetaData = function() {};

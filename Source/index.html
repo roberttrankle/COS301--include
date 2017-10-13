@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+
+  <!-- CDNs -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+
+  <link rel="stylesheet" href="https://openlayers.org/en/v4.2.0/css/ol.css" type="text/css">
+  <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+  <script src="https://openlayers.org/en/v4.2.0/build/ol-debug.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
+  
+  <script src="js/map.js"></script>
+  <script src="js/index.js"></script>
+  <script src="FactoryPatterns/MapCreator.js"></script>
+  <script src="FactoryPatterns/MapDesign.js"></script>
+  <script src="FactoryPatterns/defaultMap.js"></script>
+  <script src="FactoryPatterns/PropSymbol.js"></script>
+  <script src="FactoryPatterns/DotDensity.js"></script>
+  <script src="FactoryPatterns/Chloropleth.js"></script>
+  <script src="FactoryPatterns/HeatMap.js"></script>
+  <script src="BuilderPattern/ConcreteMapBuilder.js"></script>
+  <script src="BuilderPattern/MapBuilder.js"></script>
+
+  <script src="Strategy/Classification/Classification.js"></script>
+  <script src="Strategy/Classification/EqualInterval.js"></script>
+  <script src="Strategy/Classification/NaturalBreaks.js"></script>
+  <script src="Strategy/Classification/Quantile.js"></script>
+
+  <script src="Strategy/Standardisation/standardise.js"></script>
+  <script src="Strategy/Standardisation/StandardiseMethod.js"></script>
+
+  <script src="js/html2canvas.js"></script>
+  <!-- cite: https://github.com/niklasvh/html2canvas -->
+  <script src="js/canvas2image.js"></script>
+    <title>CGIS Map Production</title>
+</head>
+
+<body style="background :
+    radial-gradient(black 15%, transparent 16%) 0 0,
+    radial-gradient(black 15%, transparent 16%) 8px 8px,
+    radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+    radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+    background-color:#282828;
+    background-size:16px 16px; ">
+    
+    <!-- Header and Login -->
+    <!-- <div id="metaData" style="display: none;">
+    <h3 class="metaParagraph" style="text-align: center;">Meta Data</h3>
+    <p class="metaParagraph" id="meta_title">Map Title: </p><br>
+    <p class="metaParagraph" id="meta_date">Date: </p><br>
+    <p class="metaParagraph" id="meta_time">Time: </p><br>
+    <p class="metaParagraph" id="meta_author">Author: </p><br>
+    <p class="metaParagraph" id="meta_coordinate_sys">Coordinate System: </p><br>
+    <p class="metaParagraph" id="meta_datum">Datum: </p><br>
+    <p class="metaParagraph" id="meta_units">Units: </p><br>
+  </div>
+ -->
+    <div class="wobble" style="width: 25%; margin-left: 37%;">
+      <span style="cursor:pointer"> 
+        <h1 class="pulsate" style="text-align: center;" onClick="window.location.reload()">CGIS Map Production</h1>
+      </span>
+    </div>
+    <!--Side Menu-->
+    <button id="menubutton" class="btn btn-default" onclick="openNav(); closeNav2()"><span class="glyphicon glyphicon-menu-right" style="float:left"></button>
+  <div class="container-fluid">
+    <div id="sideMenu" class="menu">
+      <div class="title">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      </div>
+
+      <!-- multistep form -->
+      <form id="msform">
+       <h2>Map Specifications</h2>
+        <!-- progressbar -->
+        <ul id="progressbar" style="width: 100%;">
+          <li class="active">Data</li>
+          <!-- <li>Select Attribute</li> -->
+          <li>Map Type</li>
+          <li>Colour Scheme</li>
+          <li>Classification Method</li>
+        </ul>
+        <!-- fieldsets -->
+
+        <fieldset id="fieldset1">
+          <h2 class="fs-title">Enter Map Title</h2>
+          <input id="mapTitle" class="form-control" type="textbox" name="mapTitle" value="My GIS Thematic Map">
+
+          <h2 class="fs-title">Select a Point Feature Dataset</h2>
+          <select class="form-control" id="dataset" onchange = "populateAtt(this); setDataset(this);">
+            <option style="display:none" disabled selected value>Select a Point Feature Dataset</option>
+          </select>
+
+          <h2 class="fs-title">Select Dataset Boundaries</h2>
+          <select class="form-control" id="boundary" onchange = "setBoundaries(this)">
+            <option style="display:none" disabled selected value="1">Select a Dataset Boundary</option>
+          </select>
+   
+          <h2 class="fs-title">Select Attribute</h2>
+          <select class = "form-control" id = "attr" onchange="populateAttValues();" >
+
+          <option style = "display:none" disabled selected value = "1">Select an Attribute</option><br>";
+          
+          </select>
+
+          <h2 class="fs-title">Select Data Type</h2>
+          <div class = "row">
+            <div class = "col-xs-6"> 
+              <input type="radio" name="dataType" value="Categorical" id="discrete" onclick="checkDiscrete()">
+              Categorical
+            </div>
+            <div class="col-xs-6">
+              <input type="radio" name="dataType" value="Numerical" id="continuous" onclick="checkDiscrete()">
+              Numerical 
+            </div>
+          </div>
+
+          <div id="selectAttributeValues" style="display: none;">
+            <h2 class = "fs-title">Select Attribute Value</h2> 
+            <select class = "form-control" id = "attrValue" onchange="checkAttValue()">
+              <option style = "display:none" disabled selected value = "1">Select the Attribute Value</option><br>
+            </select>
+          </div>
+
+          <input type="button" id = "next1" name = "next" class = "next action-button" value="Next" onclick="loadWizardMaps(0); setMapTitle(); setAttrValue()"; disabled="true" />
+        </fieldset>
+
+         <fieldset>
+            
+          <h2 class="fs-title">Select Thematic Map</h2>
+          <ul id="tmepID">
+            <div class="images_list">
+              <div class="row">
+                <div class="column2">
+                  <h2 class = "fs-title" style="text-align: left;">Dot Density</h2>
+                    <li class="border" title="DotDensity" id="mapType_DotDensity" value="1">
+                    </li>
+                </div>
+                <div class="column2">
+                  <h2 class = "fs-title" style="text-align: left;">Heat</h2>
+                    <li class="border" title="HeatMap" id="mapType_Heatmap" style="float: right;" value="2">                
+                    </li>
+                </div>
+              </div>
+              <div id="loadingIcon1">
+                <div style="width:100%;height:100%" class="lds-dual-ring">
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="column2">
+                  <h2 class = "fs-title" style="text-align: left;">Choropleth</h2>
+                    <li class="border" title="Choropleth" id="mapType_Choropleth" value="3">                
+                    </li>
+                </div>
+                <div class="column2">
+                  <h2 class = "fs-title" style="text-align: left;">Proportional Symbol</h2>
+                    <li class="border" title="ProportionalSymbol" id="mapType_PropSymbol" style="float: right;" value="4">
+                    </li>
+                </div>
+              </div>
+            </div>
+          </ul>
+
+          <input type="button" name="next2" id="next2" class="next action-button" value="Next" onclick="loadColorSchemes();checkDiscrete_p3(); checkHeatOrPropSym();" disabled="true" />
+        </fieldset>
+        <fieldset>
+
+          <div id="standardization_select">
+            <h2 class = "fs-title" align = "left">Specify the Standardization Method to be used</h2>
+            <select id="standardization" onchange="setStdMethod()">
+              <option value="area">Area</option>
+              <option value="density">Density</option>
+              <!-- <option value="ratio">Ratio</option> -->
+              <option value="dns">Do Not Standardize</option>
+            </select>
+          </div>
+
+          <h2 class="fs-title" align="left">Specify the Color Scheme to be used</h2>
+
+          <div class="images_list2" style="align-content: center;" id="colorSchemesDiv">
+            <div class="row"> 
+              <div class="column3">
+                <li class="border" id="cs1" value="1"></li>
+              </div>
+
+              <!-- Divs hidden when heatmap/choro chosen since they dont allow color schemes -->
+              <div id="hiddenIfHeatOrProp1">
+                <div class="column3">
+                  <li class="border" id="cs2" value="2"></li>
+                </div>
+                <div class="column3">
+                  <li class="border" id="cs3" value="3"></li>
+                </div>
+              </div>
+            </div>
+            <div id="loadingIcon2">
+                <div style="width:100%;height:100%" class="lds-dual-ring">
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+            <div class="row" id="hiddenIfHeatOrProp2"> 
+              <div class="column3">
+                <li class="border" id="cs4" value="4"></li>
+              </div>
+              <div class="column3">
+                <li class="border" id="cs5" value="5"></li>
+              </div>
+              <div class="column3">
+                <li class="border" id="cs6" value="6"></li>
+              </div>
+            </div>
+          </div>
+
+          <div id = "numClasses_select">
+            <h2 class = "fs-title" align = "left">Specify the Number of Classes</h2>
+            <input id="numClasses" type = "number" min = "1" name = "numClasses" placeholder = "Number of Classes" value="3"; />
+          </div>
+
+          <input type="button" id="next3" name="next3" class="next action-button" value="Next" onclick="setNumClasses();checkDiscrete_p4();loadClassificationAndClasses();" disabled="true" />
+        </fieldset>
+        <fieldset>
+          <div><h2 class="fs-title">Select Final Map To Be Generated</h2></div>
+          <br>
+
+        <div class="row" id="hiddenIfDiscrete1">
+          <div class="column">
+              <p id="dynamicClassSelected"> x Classes</p>
+          </div>
+
+          <div class="column">
+              <p> 5 Classes</p>
+          </div>
+          <div class="column">
+              <p> 7 Classes</p>
+          </div>
+        </div>
+      <div class="images_list3">
+          <div class="row"> 
+            <div class="column">
+              <li class="border" id="cc1" value="1"></li>
+            </div>
+            <div id="hiddenIfDiscrete2">
+              <div class="column">
+                <li class="border" id="cc2" value="2"></li>
+              </div>
+              <div class="column">
+                <li class="border" id="cc3" value="3"></li>
+              </div>
+              <div class="column">
+                <div class="classificationRow"> <br><br><br><br><p>Equal Interval</p> </div>
+              </div>
+            </div>
+          </div>
+          <div id="loadingIcon3">
+                <div style="width:100%;height:100%" class="lds-dual-ring">
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+          <div class="row" id="hiddenIfDiscrete3"> 
+            <div class="column">
+              <li class="border" id="cc4" value="4"></li>
+            </div>
+            <div class="column">
+              <li class="border" id="cc5" value="5"></li>
+            </div>
+            <div class="column">
+              <li class="border" id="cc6" value="6"></li>
+            </div>
+            <div class="column">
+              <div class="classificationRow"> <br><br><br><br> <p>Quantile</p> </div>
+            </div>
+          </div>
+          <div class="row" id="hiddenIfDiscrete4"> 
+            <div class="column">
+              <li class="border" id="cc7" value="7"></li>
+            </div>
+            <div class="column">
+              <li class="border" id="cc8" value="8"></li>
+            </div>
+            <div class="column">
+              <li class="border" id="cc9" value="9"></li>
+            </div>
+            <div class="column">
+              <div class="classificationRow"> <br><br><br><br><p>Natural Breaks</p>   
+              </div>
+            </div>
+          </div>
+      </div>
+
+          <input type="submit" id="generateMap" name="submit" class="submit action-button" value="Generate Map" onclick="loadFinalMap();closeNav(); showNav2(); showMetaData(); generateBuilderAndFinalMap();" disabled="true" />
+    
+          <br>
+        </fieldset>
+      </form>
+    </div>
+
+
+
+    <button id="menubutton2" class="btn btn-default" onclick="openNav2(); closeNav()" style="display:none"><span class="glyphicon glyphicon-menu-left" style="float:right"></button>
+
+    <div id="sideMenu2" class="menu2"> 
+      <div id="mySidenav" class="sidenav">
+        <div class="title">
+          <a href="javascript:void(0)" class="closebtn2" onclick="closeNav2()">&times;</a>
+        </div>
+
+        <h3 style="color:white;" id="meta_title"></h3>
+        <br>
+
+        <p id="meta_date">
+          <span class="glyphicon glyphicon-calendar " style="color:white"></span>
+         
+        </p>
+
+        <br>
+        <p id="meta_time">
+          <span class="glyphicon glyphicon-time " style="color:white"></span>
+        </p>
+
+        <br>
+        <p id="meta_author">
+          <span class="glyphicon glyphicon-user " style="color:white"></span>
+          
+        </p>
+
+        <br>
+        <p id="meta_coordinate_sys">
+          <span class="glyphicon glyphicon-map-marker" style="color:white"></span>
+        </p>
+        <br>
+        <p id="meta_datum">
+          <span class="glyphicon glyphicon-globe " style="color:white"></span> 
+        </p>
+
+        <br>
+        <p id="meta_units">
+          <span class="glyphicon glyphicon-scale" style="color:white" ></span>  
+        </p>
+
+        <br>
+        <br>
+        <p style="color:white;" onClick="showMapKey(); closeNav2()" class="metaClickable">
+          <span style="color:white;  display:inline" onClick="showMapKey(); closeNav2()" class="glyphicon glyphicon-list-alt"></span>
+          Show map key
+        </p>
+        <br>
+        <p style="color:white" onClick="window.location.reload()" class="metaClickable">
+          <span style="color:white" class="glyphicon glyphicon-plus" onClick="window.location.reload()"></span>
+          Create new map
+        </p>
+
+        <br>
+        <br>
+        <br>
+          <a onClick="downloadMap()" class="btn btn-info btn-block" style="color: #000;">
+            <span class="glyphicon glyphicon-download-alt"></span> Download map
+          </a>
+
+      </div>
+    </div> 
+
+
+    
+    <div id="mapArea" class="col-md-12">
+
+     <span > 
+        <h1 id="heading" style="text-align: center;right:39%; position: fixed;z-index: 3; color:#000;" onClick="window.location.reload()"></h1>
+      </span>
+      <div id="metaData" style="display: none;">
+        <p class="metaParagraph" id="meta_authorMap">Author: </p>
+        <p class="metaParagraph" id="meta_dateMap">Date: </p> <p class="metaParagraph" id="meta_timeMap">Time: </p>
+        <p class="metaParagraph" id="meta_coordinate_sysMap">Coordinate System: </p> <p class="metaParagraph" id="meta_datumMap">Datum: </p>
+        <p class="metaParagraph" id="meta_unitsMap">Units: </p><br>
+      </div>
+
+
+
+          <a class="skiplink" href="#map">Go to map</a>
+        <div id="map" class="map" tabindex="0">
+          <div class="panel-group" id="legend"> <!--Map Key(Panel)-->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" href="#collapse1"><center>Map Key</center></a>
+                </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body" id="mapKey">
+
+                </div>
+                <div class="panel-collapse footer" id="pf">
+                  <a data-toggle="collapse" href="#collapse1">Close</a>
+                  <div id="imageDiv" style="display:inline"></div
+                </div>
+              </div>
+            </div>
+            </div>
+        </div>
+      </div>
+        <script>
+          loadMap(0,1);
+        </script>
+      </div>
+    <br>
+
+  </div>
+  <script src="js/index.js"></script>
+
+</body>
+</html>
