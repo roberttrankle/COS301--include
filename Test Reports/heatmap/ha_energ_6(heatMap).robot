@@ -10,36 +10,66 @@ Open chrome in CORS
     Call Method    ${options}    add_argument    disable-web-security
     Call Method    ${options}    add_argument    allow-running-insecure-content
     Create WebDriver    Chrome    chrome_options=${options}
-    Go To    file:///C:/Users/Boikanyo/Documents/Academics/3rd%20Year/Semester%202/COS%20301/Assignments/Capstone%20project/CGIS/Demo%202/Source/CGIS-Integrated-non-DP/proto-SideMenu.html
+    Go To    file:///C:/Users/Boikanyo/Documents/Academics/3rd%20Year/Semester%202/COS%20301/Assignments/Capstone%20project/CGIS/Demo%204/CGIS_IntegratedFinal_12_Oct_14h00/CGIS_IntegratedFinal_12_Oct_14h00/index.html
     #Enter user details
     #    Input Text    id=usr    user1
     #    Input Password    password    1234
     #    Submit Form
 
 Open side menu
-    sleep    1s
+    sleep    3s
     Click Button    menubutton
 
-Select map variable
-    wait until element is visible    xpath=//select[@id="dataset"]
-    click element    xpath=//select[@id="dataset"]
-    wait until element is visible    xpath=//option[contains(text(),'Household Dataset')]
+Select dataset variable
+    click element    xpath=//select[@id='dataset']
     sleep    1s
-    click element    xpath=//option[contains(text(),'Household Dataset')]
-    click element    xpath=//select[@id="dataset"]
+    click element    xpath=//option[contains(text(),'CGIS:households')]
     sleep    1s
-    Select Checkbox    ha_energ_6
-    #Select map type
-    #click element    xpath=//select/option[1]
-
-Select map type
+    click element    xpath=//select[@id='dataset']
     sleep    1s
-    click Button    b2
 
-Close side menu
-    sleep    2s
-    Click Link    id=close_btn
-
-Open map key
+Select boundaries variable
+    wait until element is visible    xpath=//select[@id='boundary']
+    click element    xpath=//select[@id='boundary']
     sleep    3s
-    Click Link    id=collapse_legend
+    wait until element is visible    xpath=//option[contains(text(),'CGIS:wards')]
+    click element    xpath=//select[@id='boundary']//option[text()='CGIS:wards']
+    sleep    3s
+    click element    xpath=//select[@id='boundary']
+    sleep    3s
+
+Select attribute variable
+    wait until element is visible    xpath=//select[@id='attr']
+    click element    xpath=//select[@id='attr']//option[text()='ha_energ_6']
+    sleep    3s
+
+Select data type
+    Select Radio Button    dataType    discrete
+    sleep    6s
+
+Select attribute value
+    wait until element is visible    xpath=//select[@id='attrValue']
+    click element    xpath=//select[@id='attrValue']//option[text()='Somewhat Maintained']
+
+Next page
+    click button    next1
+
+Select Map
+    sleep    15s
+    wait until element is visible    xpath=//select[@id="prop_Symbol"]
+    sleep    3s
+
+Next page
+    click button    next2
+
+Select color scheme
+    sleep    15s
+    wait until element is visible    xpath=//select[@id="cs3"]
+    sleep    3s
+
+Next page
+    click button    next2
+
+Select color scheme
+    sleep    15s
+    wait until element is visible    xpath=//select[@id="cc1
