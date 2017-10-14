@@ -1,0 +1,75 @@
+*** Settings ***
+Documentation     This is some basic info about the whole suite
+Library           Selenium2Library
+
+*** Variables ***
+
+*** Test Cases ***
+Open chrome in CORS
+    ${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
+    Call Method    ${options}    add_argument    disable-web-security
+    Call Method    ${options}    add_argument    allow-running-insecure-content
+    Create WebDriver    Chrome    chrome_options=${options}
+    Go To    file:///C:/Users/Boikanyo/Documents/Academics/3rd%20Year/Semester%202/COS%20301/Assignments/Capstone%20project/CGIS/Demo%204/CGIS_IntegratedFinal_12_Oct_14h00/CGIS_IntegratedFinal_12_Oct_14h00/index.html
+    #Enter user details
+    #    Input Text    id=usr    user1
+    #    Input Password    password    1234
+    #    Submit Form
+
+Open side menu
+    sleep    3s
+    Click Button    menubutton
+
+Select dataset variable
+    click element    xpath=//select[@id='dataset']
+    sleep    1s
+    click element    xpath=//option[contains(text(),'CGIS:households')]
+    sleep    1s
+    click element    xpath=//select[@id='dataset']
+    sleep    1s
+
+Select boundaries variable
+    wait until element is visible    xpath=//select[@id='boundary']
+    click element    xpath=//select[@id='boundary']
+    sleep    3s
+    wait until element is visible    xpath=//option[contains(text(),'CGIS:wards')]
+    click element    xpath=//select[@id='boundary']//option[text()='CGIS:wards']
+    sleep    3s
+    click element    xpath=//select[@id='boundary']
+    sleep    3s
+
+Select attribute variable
+    wait until element is visible    xpath=//select[@id='attr']
+    click element    xpath=//select[@id='attr']//option[text()='ha_energy1']
+    sleep    3s
+
+Select data type
+    Select Radio Button    dataType    discrete
+    sleep    6s
+
+Select attribute value
+    wait until element is visible    xpath=//select[@id='attrValue']
+    click element    xpath=//select[@id='attrValue']//option[text()='Somewhat Maintained']
+
+Next page
+    click button    next1
+
+Select Map
+    sleep    15s
+    wait until element is visible    xpath=//select[@id="mapType_Choropleth"]
+    sleep    3s
+
+Next page
+    click button    next2
+
+Select color scheme
+    sleep    15s
+    wait until element is visible    xpath=//select[@id="cs3"]
+    sleep    3s
+
+Next page
+    click button    next2
+
+Select color scheme
+    sleep    15s
+    wait until element is visible    xpath=//select[@id="cc1
