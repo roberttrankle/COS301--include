@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Strategy/Classification/NaturalBreaks.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Strategy/Classification/NaturalBreaks.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>  /**
+ * Natural breaks classification method concrete class
+ *
+ * @class      Quantile (Quantile)
+ */
+function NaturalBreaks() {
+    //Call parent constructor explicitly
+    Classification.call(this);
+    console.log("NaturalBreaks constructor");   
+    //Now we ensure that the methods from the parent class are available to the child class.
+    //Should maybe be outside constructor
+    
+   
+}
+
+    NaturalBreaks.prototype = Object.create(Classification.prototype);
+    NaturalBreaks.prototype.constructor = NaturalBreaks;
+
+    /**
+     * Executes natural breaks classification method
+     *
+     * @param      {array}      vectorSource        The vector source
+     * @param      {string}     attributeTitle      The title of the attribute selected
+     * @param      {number}     numberOfClasses     The number of classes
+     */
+   NaturalBreaks.prototype.NaturalBreaksExecute = function(vectorSource, attributeTitle, numberOfClasses) {
+    	var tempVectorLayerClasses = [];
+	    vectorSource.forEachFeature(function(feature) {
+	       if (tempVectorLayerClasses.indexOf(feature.get(attributeTitle)) == -1) {
+	            tempVectorLayerClasses.push(feature.get(attributeTitle));
+	           // console.log("class: "+feature.get(attributeTitle));
+	        }
+	    });
+
+   		return jenks(tempVectorLayerClasses, numberOfClasses);
+    }
+
+    /**
+     * Executes natural breaks classification method for wards
+     *
+     * @param      {array}      wardsSource         The ward source
+     * @param      {string}     keyName             The name of rhe key
+     * @param      {number}     index               The index value
+     * @param      {number}     numberOfClasses     The number of classes
+     */
+     NaturalBreaks.prototype.NaturalBreaksExecuteWards = function(wardsSource, keyName, index, numberOfClasses) {
+        var boundriesGeometry = wardsSource.getFeatures();
+        var area = 0;
+        var featureCount = 0;
+        var key = "AreaPerNumOccurences" + index;
+        keyName[index] = key;
+        var tempVectorLayerClasses = [];
+        var classes = []; //returned quantile index classes
+
+        if (wardsSource) {
+            for (var i = 0; i &lt; boundriesGeometry.length; i++) {
+                featureCount++;
+                tempVectorLayerClasses.push((wardsSource.getFeatures())[i].get(keyName[index]));
+               // console.log(tempVectorLayerClasses[i] + " record at index " + (i + 1));
+            }
+        
+
+        var classifyArray= jenks(tempVectorLayerClasses, numberOfClasses);
+        var setVectorLayerClasses = new Array(tempVectorLayerClasses.length);
+        for (var i = 0; i &lt; tempVectorLayerClasses.length; i++) {
+            setVectorLayerClasses[i]=false;
+            console.log(" index :" + i + " setVectorLayerClasses value = " +setVectorLayerClasses[i]);
+           // console.log(tempVectorLayerClasses[i] + " record at index " + (i + 1));
+        }
+       // console.log("What is returned by interval " +tempVectorLayerClasses);
+        var final = [];
+         for (var i = 0; i &lt; tempVectorLayerClasses.length; i++) {
+                for (var k = 0; k &lt; classifyArray.length; k++) {
+                    if (tempVectorLayerClasses[i] &lt;= classifyArray[k] &amp;&amp; setVectorLayerClasses[i] == false) {
+                        final[i] = k;
+                        setVectorLayerClasses[i] = true;
+                        console.log("Executing NaturalBreaks + "+final[i] + " has been changed");
+                    }
+                }
+        }
+        console.log("What is returned by NaturalBreaks " +final);
+        return final;
+    }
+ }
+
+
+    /**
+     * Compute the matrices required for Jenks breaks. These matrices
+     * can be used for any classing of data with `classes &lt;= numberOfClasses
+     *
+     * @param      {array}      tempVectorLayerClasses        The vector layer classes
+     * @param      {number}     numberOfClasses               The number of classes
+     */
+	var jenksMatrices = function(tempVectorLayerClasses, numberOfClasses) {
+
+        // in the original implementation, these matrices are referred to
+        // as `LC` and `OP`
+        //
+        // * lower_class_limits (LC): optimal lower class limits
+        // * variance_combinations (OP): optimal variance combinations for all classes
+        var lower_class_limits = [],
+            variance_combinations = [],
+            // loop counters
+            i, j,
+            // the variance, as computed at each step in the calculation
+            variance = 0;
+
+        // Initialize and fill each matrix with zeroes
+        for (i = 0; i &lt; tempVectorLayerClasses.length + 1; i++) {
+            var tmp1 = [], tmp2 = [];
+            for (j = 0; j &lt; numberOfClasses + 1; j++) {
+                tmp1.push(0);
+                tmp2.push(0);
+            }
+            lower_class_limits.push(tmp1);
+            variance_combinations.push(tmp2);
+        }
+
+        for (i = 1; i &lt; numberOfClasses + 1; i++) {
+            lower_class_limits[1][i] = 1;
+            variance_combinations[1][i] = 0;
+            // in the original implementation, 9999999 is used but
+            // since Javascript has `Infinity`, we use that.
+            for (j = 2; j &lt; tempVectorLayerClasses.length + 1; j++) {
+                variance_combinations[j][i] = Infinity;
+            }
+        }
+
+        for (var l = 2; l &lt; tempVectorLayerClasses.length + 1; l++) {
+
+            // `SZ` originally. this is the sum of the values seen thus
+            // far when calculating variance.
+            var sum = 0, 
+                // `ZSQ` originally. the sum of squares of values seen
+                // thus far
+                sum_squares = 0,
+                // `WT` originally. This is the number of 
+                w = 0,
+                // `IV` originally
+                i4 = 0;
+
+            // in several instances, you could say `Math.pow(x, 2)`
+            // instead of `x * x`, but this is slower in some browsers
+            // introduces an unnecessary concept.
+            for (var m = 1; m &lt; l + 1; m++) {
+
+                // `III` originally
+                var lower_class_limit = l - m + 1,
+                    val = tempVectorLayerClasses[lower_class_limit - 1];
+
+                // here we're estimating variance for each potential classing
+                // of the tempVectorLayerClasses, for each potential number of classes. `w`
+                // is the number of tempVectorLayerClasses points considered so far.
+                w++;
+
+                // increase the current sum and sum-of-squares
+                sum += val;
+                sum_squares += val * val;
+
+                // the variance at this point in the sequence is the difference
+                // between the sum of squares and the total x 2, over the number
+                // of samples.
+                variance = sum_squares - (sum * sum) / w;
+
+                i4 = lower_class_limit - 1;
+
+                if (i4 !== 0) {
+                    for (j = 2; j &lt; numberOfClasses + 1; j++) {
+                        if (variance_combinations[l][j] >=
+                            (variance + variance_combinations[i4][j - 1])) {
+                            lower_class_limits[l][j] = lower_class_limit;
+                            variance_combinations[l][j] = variance +
+                                variance_combinations[i4][j - 1];
+                        }
+                    }
+                }
+            }
+
+            lower_class_limits[l][1] = 1;
+            variance_combinations[l][1] = variance;
+        }
+
+        return {
+            lower_class_limits: lower_class_limits,
+            variance_combinations: variance_combinations
+        };
+    };
+
+    // # [Jenks natural breaks optimization](http://en.wikipedia.org/wiki/Jenks_natural_breaks_optimization)
+    //
+    // Implementations: [1](http://danieljlewis.org/files/2010/06/Jenks.pdf) (python),
+    // [2](https://github.com/vvoovv/djeo-jenks/blob/master/main.js) (buggy),
+    // [3](https://github.com/simogeo/geostats/blob/master/lib/geostats.js#L407) (works)
+
+    /**
+     * Performs jenks calculations
+     *
+     * @param      {array}      tempVectorLayerClasses        The vector layer classes
+     * @param      {number}     numberOfClasses               The number of classes
+     */
+    var jenks = function(tempVectorLayerClasses, numberOfClasses) {
+
+        // sort tempVectorLayerClasses in numerical order
+        tempVectorLayerClasses = tempVectorLayerClasses.slice().sort(function (a, b) { return a - b; });
+
+        // get our basic matrices
+        var matrices = this.jenksMatrices(tempVectorLayerClasses, numberOfClasses),
+            // we only need lower class limits here
+            lower_class_limits = matrices.lower_class_limits,
+            k = tempVectorLayerClasses.length - 1,
+            kclass = [],
+            countNum = numberOfClasses;
+
+        // the calculation of classes will never include the upper and
+        // lower bounds, so we need to explicitly set them
+        kclass[numberOfClasses] = tempVectorLayerClasses[tempVectorLayerClasses.length - 1];
+        kclass[0] = tempVectorLayerClasses[0];
+
+        // the lower_class_limits matrix is used as indexes into itself
+        // here: the `k` variable is reused in each iteration.
+        while (countNum > 1) {
+            kclass[countNum - 1] = tempVectorLayerClasses[lower_class_limits[k][countNum] - 2];
+            k = lower_class_limits[k][countNum] - 1;
+            countNum--;
+        }
+
+        return kclass;
+    };
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="chloroplethCreator.html">chloroplethCreator</a></li><li><a href="choroplethConcrete.html">choroplethConcrete</a></li><li><a href="Classification.html">Classification</a></li><li><a href="ConcreteMapBuilder.html">ConcreteMapBuilder</a></li><li><a href="defaultMapCreator.html">defaultMapCreator</a></li><li><a href="defaultMapDesign.html">defaultMapDesign</a></li><li><a href="DotDensityConcrete.html">DotDensityConcrete</a></li><li><a href="DotDensityCreator.html">DotDensityCreator</a></li><li><a href="EqualInterval.html">EqualInterval</a></li><li><a href="HeatMapConcrete.html">HeatMapConcrete</a></li><li><a href="HeatMapCreator.html">HeatMapCreator</a></li><li><a href="MapBuilder.html">MapBuilder</a></li><li><a href="MapCreator.html">MapCreator</a></li><li><a href="MapDesign.html">MapDesign</a></li><li><a href="MapProduct.html">MapProduct</a></li><li><a href="NaturalBreaks.html">NaturalBreaks</a></li><li><a href="PropSymbolCreator.html">PropSymbolCreator</a></li><li><a href="Quantile.html">Quantile</a></li><li><a href="Standardise.html">Standardise</a></li><li><a href="StandardiseMethod.html">StandardiseMethod</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeAtt">changeAtt</a></li><li><a href="global.html#checkAttValue">checkAttValue</a></li><li><a href="global.html#checkDiscrete">checkDiscrete</a></li><li><a href="global.html#checkDiscrete_p3">checkDiscrete_p3</a></li><li><a href="global.html#checkDiscrete_p4">checkDiscrete_p4</a></li><li><a href="global.html#checkHeatOrPropSym">checkHeatOrPropSym</a></li><li><a href="global.html#closeNav">closeNav</a></li><li><a href="global.html#closeNav2">closeNav2</a></li><li><a href="global.html#convertToImage">convertToImage</a></li><li><a href="global.html#download">download</a></li><li><a href="global.html#downloadMap">downloadMap</a></li><li><a href="global.html#generateBuilderAndFinalMap">generateBuilderAndFinalMap</a></li><li><a href="global.html#hideMetaData">hideMetaData</a></li><li><a href="global.html#hideNav2">hideNav2</a></li><li><a href="global.html#isFloat">isFloat</a></li><li><a href="global.html#isInt">isInt</a></li><li><a href="global.html#jenks">jenks</a></li><li><a href="global.html#jenksMatrices">jenksMatrices</a></li><li><a href="global.html#listDataSets">listDataSets</a></li><li><a href="global.html#loadClassificationAndClasses">loadClassificationAndClasses</a></li><li><a href="global.html#loadColorSchemes">loadColorSchemes</a></li><li><a href="global.html#loadDataset">loadDataset</a></li><li><a href="global.html#loadFinalMap">loadFinalMap</a></li><li><a href="global.html#loadMap">loadMap</a></li><li><a href="global.html#loadWizardMaps">loadWizardMaps</a></li><li><a href="global.html#openNav">openNav</a></li><li><a href="global.html#openNav2">openNav2</a></li><li><a href="global.html#populateAtt">populateAtt</a></li><li><a href="global.html#populateAttValues">populateAttValues</a></li><li><a href="global.html#punycode">punycode</a></li><li><a href="global.html#requestCapabilities">requestCapabilities</a></li><li><a href="global.html#setAttrValue">setAttrValue</a></li><li><a href="global.html#setBoundaries">setBoundaries</a></li><li><a href="global.html#setDataset">setDataset</a></li><li><a href="global.html#setMapTitle">setMapTitle</a></li><li><a href="global.html#setNumClasses">setNumClasses</a></li><li><a href="global.html#setStdMethod">setStdMethod</a></li><li><a href="global.html#showLogin">showLogin</a></li><li><a href="global.html#showMapKey">showMapKey</a></li><li><a href="global.html#showMetaData">showMetaData</a></li><li><a href="global.html#showNav2">showNav2</a></li><li><a href="global.html#unHideMeta">unHideMeta</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Oct 16 2017 11:54:36 GMT+0200 (South Africa Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

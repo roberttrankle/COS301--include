@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Strategy/Classification/Quantile.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Strategy/Classification/Quantile.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code> /**
+ * Quantile classification method concrete class
+ *
+ * @class      Quantile (Quantile)
+ */
+
+function Quantile() {
+    //Call parent constructor explicitly
+    Classification.call(this);
+    console.log("Quantile constructor");
+    //Now we ensure that the methods from the parent class are available to the child class.
+    //Should maybe be outside constructor
+
+
+}
+
+Quantile.prototype = Object.create(Classification.prototype);
+Quantile.prototype.constructor = Quantile;
+
+/**
+ * Checks if param is an int
+ *
+ * @param   {&lt;type>}        n        The value to be checked
+ */
+function isInt(n) {
+    return Number(n) === n &amp;&amp; n % 1 === 0;
+}
+
+/**
+ * Checks if param is a float
+ *
+ * @param   {&lt;type>}        n        The value to be checked
+ */
+function isFloat(n) {
+    return Number(n) === n &amp;&amp; n % 1 !== 0;
+}
+
+/**
+     * Executes quantile classification method
+     *
+     * @param      {array}      vectorSource        The vector source
+     * @param      {string}     attributeTitle      The title of the attribute selected
+     * @param      {number}     numberOfClasses     The number of classes
+     */
+Quantile.prototype.QuantileExecute = function(vectorSource, attributeTitle, numberOfClasses) {
+    // console.log(" Inside QuantileExecute");
+    var tempVectorLayerClasses = [];
+    var classes = []; //returned quantile index classes
+
+    if (vectorSource) {
+        var numberOfElements = 0;
+
+        vectorSource.forEachFeature(function(feature) {
+            tempVectorLayerClasses.push(feature.get(attributeTitle));
+            numberOfElements++;
+
+        });
+
+        var boundary = numberOfElements / numberOfClasses;
+
+        var temp = 0;
+        for (var i = 0; i &lt; numberOfClasses; i++) {
+            temp += (boundary);
+            classes.push(temp);
+            // console.log("temp" + temp );
+
+        }
+
+    } else {
+        console.log(" Cannot find vectorSource");
+    }
+
+    return classes;
+};
+
+/**
+ * Executes quantlie classification method for wards
+ *
+ * @param      {array}      wardsSource         The ward source
+ * @param      {string}     keyName             The name of rhe key
+ * @param      {number}     index               The index value
+ * @param      {number}     numberOfClasses     The number of classes
+ */
+Quantile.prototype.QuantileExecuteWards = function(wardsSource, keyName, index, numberOfClasses) {
+    var boundriesGeometry = wardsSource.getFeatures();
+    var area = 0;
+    var featureCount = 0;
+    var key = "AreaPerNumOccurences" + index;
+    keyName[index] = key;
+    var tempVectorLayerClasses = [];
+    var classes = []; //returned quantile index classes
+
+    if (wardsSource) {
+        for (var i = 0; i &lt; boundriesGeometry.length; i++) {
+            featureCount++;
+            tempVectorLayerClasses.push((wardsSource.getFeatures())[i].get(keyName[index]));
+           // console.log(tempVectorLayerClasses[i] + " record at index " + (i + 1));
+        }
+
+       // console.log("Array inside quantile wards classification " + tempVectorLayerClasses);
+        var boundary = featureCount / numberOfClasses;
+
+        var temp = 0;
+        for (var i = 0; i &lt; numberOfClasses; i++) {
+            temp += (boundary);
+            classes.push(temp);
+            // console.log("temp" + temp );
+
+        }
+
+    } else {
+        console.log(" Cannot find vectorSource");
+    }
+    console.log(classes + "returned by quantilewards");
+    return classes;
+
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="chloroplethCreator.html">chloroplethCreator</a></li><li><a href="choroplethConcrete.html">choroplethConcrete</a></li><li><a href="Classification.html">Classification</a></li><li><a href="ConcreteMapBuilder.html">ConcreteMapBuilder</a></li><li><a href="defaultMapCreator.html">defaultMapCreator</a></li><li><a href="defaultMapDesign.html">defaultMapDesign</a></li><li><a href="DotDensityConcrete.html">DotDensityConcrete</a></li><li><a href="DotDensityCreator.html">DotDensityCreator</a></li><li><a href="EqualInterval.html">EqualInterval</a></li><li><a href="HeatMapConcrete.html">HeatMapConcrete</a></li><li><a href="HeatMapCreator.html">HeatMapCreator</a></li><li><a href="MapBuilder.html">MapBuilder</a></li><li><a href="MapCreator.html">MapCreator</a></li><li><a href="MapDesign.html">MapDesign</a></li><li><a href="MapProduct.html">MapProduct</a></li><li><a href="NaturalBreaks.html">NaturalBreaks</a></li><li><a href="PropSymbolCreator.html">PropSymbolCreator</a></li><li><a href="Quantile.html">Quantile</a></li><li><a href="Standardise.html">Standardise</a></li><li><a href="StandardiseMethod.html">StandardiseMethod</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeAtt">changeAtt</a></li><li><a href="global.html#checkAttValue">checkAttValue</a></li><li><a href="global.html#checkDiscrete">checkDiscrete</a></li><li><a href="global.html#checkDiscrete_p3">checkDiscrete_p3</a></li><li><a href="global.html#checkDiscrete_p4">checkDiscrete_p4</a></li><li><a href="global.html#checkHeatOrPropSym">checkHeatOrPropSym</a></li><li><a href="global.html#closeNav">closeNav</a></li><li><a href="global.html#closeNav2">closeNav2</a></li><li><a href="global.html#convertToImage">convertToImage</a></li><li><a href="global.html#download">download</a></li><li><a href="global.html#downloadMap">downloadMap</a></li><li><a href="global.html#generateBuilderAndFinalMap">generateBuilderAndFinalMap</a></li><li><a href="global.html#hideMetaData">hideMetaData</a></li><li><a href="global.html#hideNav2">hideNav2</a></li><li><a href="global.html#isFloat">isFloat</a></li><li><a href="global.html#isInt">isInt</a></li><li><a href="global.html#jenks">jenks</a></li><li><a href="global.html#jenksMatrices">jenksMatrices</a></li><li><a href="global.html#listDataSets">listDataSets</a></li><li><a href="global.html#loadClassificationAndClasses">loadClassificationAndClasses</a></li><li><a href="global.html#loadColorSchemes">loadColorSchemes</a></li><li><a href="global.html#loadDataset">loadDataset</a></li><li><a href="global.html#loadFinalMap">loadFinalMap</a></li><li><a href="global.html#loadMap">loadMap</a></li><li><a href="global.html#loadWizardMaps">loadWizardMaps</a></li><li><a href="global.html#openNav">openNav</a></li><li><a href="global.html#openNav2">openNav2</a></li><li><a href="global.html#populateAtt">populateAtt</a></li><li><a href="global.html#populateAttValues">populateAttValues</a></li><li><a href="global.html#punycode">punycode</a></li><li><a href="global.html#requestCapabilities">requestCapabilities</a></li><li><a href="global.html#setAttrValue">setAttrValue</a></li><li><a href="global.html#setBoundaries">setBoundaries</a></li><li><a href="global.html#setDataset">setDataset</a></li><li><a href="global.html#setMapTitle">setMapTitle</a></li><li><a href="global.html#setNumClasses">setNumClasses</a></li><li><a href="global.html#setStdMethod">setStdMethod</a></li><li><a href="global.html#showLogin">showLogin</a></li><li><a href="global.html#showMapKey">showMapKey</a></li><li><a href="global.html#showMetaData">showMetaData</a></li><li><a href="global.html#showNav2">showNav2</a></li><li><a href="global.html#unHideMeta">unHideMeta</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Oct 16 2017 11:54:36 GMT+0200 (South Africa Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
