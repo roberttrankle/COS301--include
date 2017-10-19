@@ -1,13 +1,13 @@
 /**
- * A class to mediate between the different patterns and handle their objects.
+ * A class to mediate betweeen the different patterns and handle their objects.
  *
  * @class      MapDesign (MapDesign)
  */
 var MapDesign = function() {
     this.featureToDisplay = "ha_dwellin"; //must set with UI
     this.selectedValue; //toAdd
-    this.vectorSourceTypeName = "CGIS:households";
-    this.wardSourceTypeName = "CGIS:wards";
+    this.vectorSourceTypeName = "CGIS:copc_households";
+    this.wardSourceTypeName = "CGIS:electoralwardsfortsh";
     this.vectorSource;
     this.wardsSource;
     this.symbolSource;
@@ -33,6 +33,7 @@ var MapDesign = function() {
     this.colorSchemeIterationCounter = 0;
     this.ccMapArray = [];
     this.classAndClassficationIterationCounter = 0;
+    this.finalMapIterator = 0;
     this.loadSources();
     this.concreteMapBuilder;
     this.classifyArray = [];
@@ -48,11 +49,6 @@ var MapDesign = function() {
     this.standardisationObject;
 };
 
-/**
- * Standardises numerical data
- *
- * @param      {string}      method         The standardisation method to be used
- */
 MapDesign.prototype.standardise = function(method) {
     //Code to call strategy method
     this.standardisationObject = new StandardiseMethod();
@@ -92,15 +88,6 @@ MapDesign.prototype.getContinousValues = function(attributeTitle) {
     return tempVectorLayerClasses;
 }
 
-/**
- * Classifies numerical data
- *
- * @param      {ol.source}      source              Specifies the source
- * @param      {string}         propertyKeyName     Specifies the name of the property key name
- * @param      {string}         method              Specifies the method to be used
- * @param      {number}         numberOfClasses     Specifies the number of classes
- * @param      {number}         mapType             Specifies the type of map
- */
 MapDesign.prototype.classify = function(source, propertyKeyName, method, numberOfClasses, mapType) {
     //Code to classify the data
     var method1 = "EQUALINTERVAL";
@@ -146,10 +133,10 @@ MapDesign.prototype.classify = function(source, propertyKeyName, method, numberO
         case method3:
             if (mapType == 1) {
                 this.naturalBreaks = new NaturalBreaks();
-                this.classifiedArray = this.naturalBreaks.NaturalBreaksExecute(source, propertyKeyName, numberOfClasses);
+                this.classifyArray = this.naturalBreaks.NaturalBreaksExecute(source, propertyKeyName, numberOfClasses);
             } else {
                 this.naturalBreaks = new NaturalBreaks();
-                this.classifiedArray = this.naturalBreaks.NaturalBreaksExecuteWards(this.wardsSource, this.mapValuesKeyNames, this.currentMapIndex, numberOfClasses);
+                this.classifyArray = this.naturalBreaks.NaturalBreaksExecuteWards(this.wardsSource, this.mapValuesKeyNames, this.currentMapIndex, numberOfClasses);
                 return;
             }
             break;
@@ -213,43 +200,22 @@ MapDesign.prototype.classify = function(source, propertyKeyName, method, numberO
 
 };
 
-
 MapDesign.prototype.render = function() {
     //render code
 };
 
-/**
- * Gets the vector source.
- *
- * @return     {ol.source}  The vector source.
- */
 MapDesign.prototype.getVectorSource = function() {
     return this.vectorSource;
 };
 
-/**
- * Gets the wards source.
- *
- * @return     {ol.source}  The wards source.
- */
 MapDesign.prototype.getWardsSource = function() {
     return this.wardsSource;
 };
 
-/**
- * Sets the vector source.
- *
- * @param      {ol.source}  source  The source
- */
 MapDesign.prototype.setVectorSource = function(source) {
     this.vectorSource = source;
 };
 
-/**
- * Sets the ward source.
- *
- * @param      {ol.source}  source  The source
- */
 MapDesign.prototype.setWardsSource = function(source) {
     this.wardsSource = source;
 };
@@ -304,7 +270,7 @@ MapDesign.prototype.loadSources = function() {
  * @return     {boolean}   True if source ready, False otherwise.
  */
 MapDesign.prototype.isSourceReady = function(mapType, pageToLoad, callback) {
-    this.removeLayers();
+    //this.removeLayers();
     if (this.vectorSource != undefined && this.vectorSource.getState() == 'ready') {
         this.createWardLayer();
         //this.calculateColorClass(5); //Get classcount from DOM / local (implies writing set function)
@@ -453,6 +419,9 @@ MapDesign.prototype.recursiveCreate = function(mapType, pageToLoad, callback) {
                 currMap.getView().setZoom(currMap.getView().getZoom() * 1.015);
             }
         }
+        ++this.finalMapIterator
+        if (callback) //to make sure mapkey is done after map created
+            callback();
     }
     if (pageToLoad == 4) {
         if (sessionStorage.getItem('isDiscrete') == 'true') {
@@ -716,11 +685,6 @@ MapDesign.prototype.removeLayers = function() {
     this.map.removeLayer(this.wardsVectorLayer.layer);
 };
 
-/**
- * Requests a geojson feature object from geoserver and creates a point vector source.
- *
- * @param      {string}  typeName  The type name
- */
 MapDesign.prototype.createVectorSource = function(typeName) {
     this.vectorSource = new ol.source.Vector({
         format: new ol.format.GeoJSON(),
@@ -732,11 +696,7 @@ MapDesign.prototype.createVectorSource = function(typeName) {
         strategy: ol.loadingstrategy.bbox
     });
 };
-
-// Requests a geojson feature object from geoserver and creates a wards vector source.
-//
-// @param      {string}  typeName  The type name
-//
+// 
 MapDesign.prototype.creatwardsSource = function(typeName) {
     this.wardsSource = new ol.source.Vector({
         format: new ol.format.GeoJSON(),
@@ -759,9 +719,6 @@ MapDesign.prototype.creatwardsSource = function(typeName) {
     });
 };
 
-/**
- * Loads boundaries with styles
- */
 MapDesign.prototype.loadWards = function() {
     this.wardsVectorLayer.layer = new ol.layer.Vector({
         source: this.wardsSource,
@@ -787,9 +744,6 @@ MapDesign.prototype.loadWards = function() {
     });
 };
 
-/**
- * Creates a point feature layer and adds it to the page 2 maps
- */
 MapDesign.prototype.createFeatureLayer = function() {
     this.featureLayer.layer = new ol.layer.Vector({
         source: this.vectorSource,
@@ -804,9 +758,6 @@ MapDesign.prototype.createFeatureLayer = function() {
     this.wizardMapArray[3].addLayer(this.featureLayer.layer);
 };
 
-/**
- * Creates a boundaries layer.
- */
 MapDesign.prototype.createWardLayer = function() {
     this.wardsVectorLayer.layer = new ol.layer.Vector({
         source: this.wardsSource,
@@ -816,9 +767,6 @@ MapDesign.prototype.createWardLayer = function() {
     });
 };
 
-/**
- * Creates a symbol layer.
- */
 MapDesign.prototype.createSymbolLayer = function() {
     var symbolSource = new ol.source.Vector({});
     this.symbolLayer.layer = new ol.layer.Vector({
@@ -828,7 +776,7 @@ MapDesign.prototype.createSymbolLayer = function() {
 
 
 /**
- * Creates map with default interaction properties
+ * Creates the maps needed for each page, allowing the final map to be interactive whilst the others not.
  */
 MapDesign.prototype.initializeMap = function() {
     this.map = new ol.Map({
@@ -953,12 +901,12 @@ MapDesign.prototype.getVectorClasses = function() {
     return this.vectorLayerClasses;
 }
 
-//
-// Creates an array of unique values for a attribute which's name is passed
-//
-// @param      {string}          attributeTitle  The attribute title
-// @return     {string[]}  The unique discrete values.
-//
+/**
+ * Gets the unique discrete values.By creating an array of unique values for a attribute which's name is passed.
+ *
+ * @param      {<type>}          attributeTitle  The attribute title
+ * @return     {(Array|string)}  The unique discrete values.
+ */
 MapDesign.prototype.getUniqueDiscreteValues = function(attributeTitle) {
     var tempVectorLayerClasses = [];
     this.vectorSource.forEachFeature(function(feature) {
@@ -977,19 +925,64 @@ MapDesign.prototype.getUniqueDiscreteValues = function(attributeTitle) {
  * Creates map elements by utilising the builder pattern. Elements created include map heading, map legend, and meta data.
  */
 MapDesign.prototype.createMapElements = function() {
+    // if (parseInt(sessionStorage.getItem('mapTypeSelected')) != 0 && (this.wardsSource == undefined || this.vectorSource == undefined || this.wardsSource.getFeatures().length <= 0 || this.vectorSource.getFeatures().length <= 0)) {
+    //     // console.log("A source is not ready, waiting 1s and retrying");
+    //     console.log("WSc=" + this.wardsSource.getFeatures().length +  "VSc=" + this.vectorSource.getFeatures().length);
+    //     if(this.vectorSource.getFeatures().length <= 0)
+    //     {
+    //         this.createVectorSource(this.vectorSourceTypeName);
+    //         this.removeLayers();
+    //         this.createFeatureLayer();
+    //         this.map.addLayer(this.featureLayer.layer);
+    //     }
+    //     var that = this;
+    //     setTimeout(function() {
+    //         that.createMapElements();
+    //     }, 1000);
+    //     return;
+    // }
+    if (sessionStorage.getItem('isDiscrete') == 'true') {
+        isDiscrete = true;
+    } else {
+        isDiscrete = false;
+    }
+    var doStandardise = true;
+    if (doStandardise && parseInt(sessionStorage.getItem('mapTypeSelected')) != 1 && parseInt(sessionStorage.getItem('mapTypeSelected')) != 2) {
+        this.standardise(this.currentStandardisationMethod); //GET FROM DOM
+        if (!isDiscrete) {
+            this.classify(this.wardsSource, this.mapValuesKeyNames[this.currentMapIndex], sessionStorage.getItem('classification'), parseInt(sessionStorage.getItem('finalMapNumberOfClasses')), parseInt(sessionStorage.getItem('mapTypeSelected')));
+        }
+    } else {
+        if (parseInt(sessionStorage.getItem('mapTypeSelected')) == 1) {
+            console.log(this.vectorSource.getFeatures());
+            this.classify(this.vectorSource, this.featureToDisplay, sessionStorage.getItem('classification'), parseInt(sessionStorage.getItem('finalMapNumberOfClasses')), parseInt(sessionStorage.getItem('mapTypeSelected')));
+        };
+    }
+    this.generateColorSchemes(parseInt(sessionStorage.getItem('finalMapNumberOfClasses')), parseInt(sessionStorage.getItem('colorSchemeSelected')));
+    console.log(this.classifiedArray);
+    console.log(this.classifyArray);
+    console.log(parseInt(sessionStorage.getItem('finalMapNumberOfClasses')));
     if (this.concreteMapBuilder == undefined) {
         this.concreteMapBuilder = new ConcreteMapBuilder();
     }
     this.concreteMapBuilder.buildMapHeading();
-    this.concreteMapBuilder.buildMapLegend(this.numberOfClasses, this.colorPerClass, this.vectorLayerClasses, this.selectedValue);
-    // this.concreteMapBuilder.buildMapScale();
+    if (sessionStorage.getItem('classification') == "QUANTILE") {
+        this.concreteMapBuilder.buildMapLegend(parseInt(sessionStorage.getItem('finalMapNumberOfClasses')), this.colorPerClass, this.vectorLayerClasses, this.selectedValue);
+    }
+    else {
+        if(sessionStorage.getItem('isDiscrete') == 'false') {
+            this.concreteMapBuilder.buildMapLegend(parseInt(sessionStorage.getItem('finalMapNumberOfClasses')), this.colorPerClass, this.classifyArray, this.selectedValue);
+        }
+        else {
+            this.concreteMapBuilder.buildMapLegend(parseInt(sessionStorage.getItem('finalMapNumberOfClasses')), this.colorPerClass, this.vectorLayerClasses, this.selectedValue);
+        }
+    }
     this.concreteMapBuilder.buildMapNorthArrow();
     this.concreteMapBuilder.buildMapMetaData();
 }
 
-
 /**
- * Adds sources to be able to list unique attribute values and calls the list function
+ * { function_description }
  */
 MapDesign.prototype.listUniqueAttributeValues = function() {
     if (this.vectorSource == undefined) {
@@ -1014,7 +1007,7 @@ MapDesign.prototype.listUniqueAttributeValues = function() {
 }
 
 /**
- * Waits till point source is ready and adds a list of unique values to the html dropdown element
+ * { function_description }
  */
 MapDesign.prototype.recursiveWaitAndList = function() {
     if (this.vectorSource == undefined || this.vectorSource.getFeatures().length <= 0) {
@@ -1037,7 +1030,7 @@ MapDesign.prototype.recursiveWaitAndList = function() {
         for (var i = 0; i < this.uniqueAttributeValues.length; i++) {
             // check if value not null
             if (this.uniqueAttributeValues[i] != undefined && this.uniqueAttributeValues[i].trim()) {
-                document.getElementById("attrValue").innerHTML += "<option value = \"" + i + 1 + "\" >" + this.uniqueAttributeValues[i] + "</option><br>";
+                document.getElementById("attrValue").innerHTML += "<option value = \"" + i + 1  + "\" >" + this.uniqueAttributeValues[i] + "</option><br>";
             }
         }
 
@@ -1053,7 +1046,7 @@ MapDesign.prototype.recursiveWaitAndList = function() {
  * Generates different color schemes based on the paramaters
  *
  * @param      {number}  classCount        The number of classes to seperate the selected spectrum
- * @param      {number}  schemeToGenerate  The color scheme to generate
+ * @param      {<type>}  schemeToGenerate  The color scheme to generate
  */
 MapDesign.prototype.generateColorSchemes = function(classCount, schemeToGenerate) {
     if (classCount <= 0) {

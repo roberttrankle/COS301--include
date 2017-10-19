@@ -1,4 +1,9 @@
-//Concrete Creator
+/**
+ * A class to create choropleth maps.
+ *
+ * @class      choroplethCreator (choroplethCreator)
+ */
+
 function chloroplethCreator() {
 };
 
@@ -207,9 +212,14 @@ chloroplethCreator.prototype.createMap = function(map, vectorSource, wardsSource
     }
 };
 
-function chloroplethDesign(map) {
+/**
+ * A concrete product of a choropleth map creator.
+ *
+ * @class      choroplethConcrete
+ */
+function choroplethConcrete(map) {
     this.map = map;
 };
 
-chloroplethDesign.prototype = Object.create(MapDesign.prototype);
-chloroplethDesign.prototype.constructor = chloroplethDesign;
+choroplethConcrete.prototype = Object.create(MapProduct.prototype);
+choroplethConcrete.prototype.constructor = choroplethConcrete;

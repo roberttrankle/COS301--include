@@ -1,4 +1,9 @@
-//Concrete Creator
+/**
+ * A class to create heat maps.
+ *
+ * @class      HeatMapCreator (HeatMapCreator)
+ */
+
 function HeatMapCreator(){
 };
 
@@ -20,6 +25,14 @@ HeatMapCreator.prototype.createMap = function(map, vectorSource, featureLayer){
     map.addLayer(featureLayer.layer);
 };
 
-function HeatMapDesign(map){
+/**
+ * A concrete product of a heat map creator.
+ *
+ * @class      HeatMapConcrete
+ */
+function HeatMapConcrete(map){
 	this.map = map;
 };
+
+HeatMapConcrete.prototype = Object.create(MapProduct.prototype);
+HeatMapConcrete.prototype.constructor = HeatMapConcrete;

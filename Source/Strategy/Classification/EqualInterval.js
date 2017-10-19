@@ -1,7 +1,3 @@
-/**
- * Equal interval classification method concrete class
- *
- */
 function EqualInterval() {
 	//Call parent constructor explicitly
 	Classification.call(this);
@@ -12,13 +8,7 @@ function EqualInterval() {
 	EqualInterval.prototype = Object.create(Classification.prototype);
 	EqualInterval.prototype.constructor = EqualInterval;
 
-	/**
-	 * Executes equal interval classification method
-	 *
-	 * @param      {array}    	vectorSource		The vector source
-	 * @param      {string}  	attributeTitle  	The title of the attribute selected
-	 * @param      {number}  	numberOfClasses  	The number of classes
-	 */
+
     EqualInterval.prototype.EqualIntervalExecute = function(vectorSource, attributeTitle, numberOfClasses) {
     	console.log(" Inside EqualIntervalExecute");
         var minimum = 0;
@@ -61,15 +51,6 @@ function EqualInterval() {
 	    console.log("What is returned by interval " +tempVectorLayerClasses);
     	return tempVectorLayerClasses;
     }
-
-    /**
-	 * Executes equal interval classification method for wards
-	 *
-	 * @param      {array}    	wardsSource			The ward source
-	 * @param      {string}  	keyName  			The name of rhe key
-	 * @param      {number}  	index  				The index value
-	 * @param      {number}  	numberOfClasses  	The number of classes
-	 */
 
      EqualInterval.prototype.EqualIntervalExecuteWards = function( wardsSource, keyName, index , numberOfClasses) {
      	console.log(" Inside EqualIntervalExecuteWards");

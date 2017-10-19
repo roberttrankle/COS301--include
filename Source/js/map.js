@@ -19,7 +19,11 @@ function loadMap(mapType, pageToLoad, callback) {
         mapDesign.isSourceReady(mapType, pageToLoad, loadColorSchemes);
     } else if (pageToLoad == 4) {
         mapDesign.isSourceReady(mapType, pageToLoad, loadClassificationAndClasses);
-    } else {
+    } 
+    else if(pageToLoad == 5) {
+        mapDesign.isSourceReady(mapType, pageToLoad, loadFinalMap);
+    }
+    else {
         mapDesign.isSourceReady(mapType, pageToLoad);
     }
 }
@@ -108,7 +112,14 @@ function loadClassificationAndClasses() {
  * Loads the final map.
  */
 function loadFinalMap() {
-    loadMap(sessionStorage.getItem('mapTypeSelected'), 5);
+    if(mapDesign.finalMapIterator < 1)
+    {
+        console.log("loadMapLegend");
+        loadMap(sessionStorage.getItem('mapTypeSelected'), 5);
+    }
+    else if(mapDesign.finalMapIterator == 1){
+        mapDesign.loadMapLegend();
+    }
 }
 
 
@@ -205,7 +216,7 @@ function listDataSets(response) {
     });
     for (var i = 0; i < featureDatabases.length; i++) {
         document.getElementById("dataset").innerHTML += "<option value = \"" + i + "\" >" + featureDatabases[i] + "</option><br>";
-        document.getElementById("boundary").innerHTML += "<option value = \"" + i + "\" >" + featureDatabases[i] + "</option><br>";
+        document.getElementById("boundary").innerHTML += "<option value = \"" + i + 1 + "\" >" + featureDatabases[i] + "</option><br>";
     }
     datasets = featureDatabases;
 }
@@ -276,14 +287,6 @@ function setBoundaries() {
  */
 function setStdMethod() {
     
-}
-
-/**
- * Used to call to a function to load the maps legend.
- */
-function generateBuilderAndFinalMap() {
-    // loadMap(sessionStorage.getItem('mapTypeSelected'), 5);
-    mapDesign.loadMapLegend();
 }
 
 /* Citations

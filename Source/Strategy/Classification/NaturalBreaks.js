@@ -1,7 +1,3 @@
-/**
- * Natural breaks classification method concrete class
- *
- */
 function NaturalBreaks() {
     //Call parent constructor explicitly
     Classification.call(this);
@@ -15,33 +11,21 @@ function NaturalBreaks() {
     NaturalBreaks.prototype = Object.create(Classification.prototype);
     NaturalBreaks.prototype.constructor = NaturalBreaks;
 
-    /**
-     * Executes natural breaks classification method
-     *
-     * @param      {array}      vectorSource        The vector source
-     * @param      {string}     attributeTitle      The title of the attribute selected
-     * @param      {number}     numberOfClasses     The number of classes
-     */
+    
    NaturalBreaks.prototype.NaturalBreaksExecute = function(vectorSource, attributeTitle, numberOfClasses) {
-    	var tempVectorLayerClasses = [];
-	    vectorSource.forEachFeature(function(feature) {
-	       if (tempVectorLayerClasses.indexOf(feature.get(attributeTitle)) == -1) {
-	            tempVectorLayerClasses.push(feature.get(attributeTitle));
-	           // console.log("class: "+feature.get(attributeTitle));
-	        }
-	    });
+        var tempVectorLayerClasses = [];
+        console.log(vectorSource.getFeatures());
+        vectorSource.forEachFeature(function(feature) {
+           if (tempVectorLayerClasses.indexOf(feature.get(attributeTitle)) == -1) {
+                tempVectorLayerClasses.push(feature.get(attributeTitle));
+               // console.log("class: "+feature.get(attributeTitle));
+            }
+        });
+        console.log(tempVectorLayerClasses.length);
 
-   		return jenks(tempVectorLayerClasses, numberOfClasses);
+        return jenks(tempVectorLayerClasses, numberOfClasses);
     }
 
-    /**
-     * Executes natural breaks classification method for wards
-     *
-     * @param      {array}      wardsSource         The ward source
-     * @param      {string}     keyName             The name of rhe key
-     * @param      {number}     index               The index value
-     * @param      {number}     numberOfClasses     The number of classes
-     */
      NaturalBreaks.prototype.NaturalBreaksExecuteWards = function(wardsSource, keyName, index, numberOfClasses) {
         var boundriesGeometry = wardsSource.getFeatures();
         var area = 0;
@@ -83,14 +67,9 @@ function NaturalBreaks() {
  }
 
 
-    /**
-     * Compute the matrices required for Jenks breaks. These matrices
-     * can be used for any classing of data with `classes <= numberOfClasses
-     *
-     * @param      {array}      tempVectorLayerClasses        The vector layer classes
-     * @param      {number}     numberOfClasses               The number of classes
-     */
-	var jenksMatrices = function(tempVectorLayerClasses, numberOfClasses) {
+    // Compute the matrices required for Jenks breaks. These matrices
+    // can be used for any classing of data with `classes <= numberOfClasses`
+    var jenksMatrices = function(tempVectorLayerClasses, numberOfClasses) {
 
         // in the original implementation, these matrices are referred to
         // as `LC` and `OP`
@@ -105,6 +84,8 @@ function NaturalBreaks() {
             variance = 0;
 
         // Initialize and fill each matrix with zeroes
+        console.log(tempVectorLayerClasses.length);
+        console.log(numberOfClasses);
         for (i = 0; i < tempVectorLayerClasses.length + 1; i++) {
             var tmp1 = [], tmp2 = [];
             for (j = 0; j < numberOfClasses + 1; j++) {
@@ -191,12 +172,6 @@ function NaturalBreaks() {
     // [2](https://github.com/vvoovv/djeo-jenks/blob/master/main.js) (buggy),
     // [3](https://github.com/simogeo/geostats/blob/master/lib/geostats.js#L407) (works)
 
-    /**
-     * Performs jenks calculations
-     *
-     * @param      {array}      tempVectorLayerClasses        The vector layer classes
-     * @param      {number}     numberOfClasses               The number of classes
-     */
     var jenks = function(tempVectorLayerClasses, numberOfClasses) {
 
         // sort tempVectorLayerClasses in numerical order

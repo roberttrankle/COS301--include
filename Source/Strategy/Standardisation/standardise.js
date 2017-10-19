@@ -1,6 +1,7 @@
-/**
+  /**
  * Abstact class for standardisation methods
  *
+ * @class      Classification (Classification)
  */
 function Standardise() {
 	

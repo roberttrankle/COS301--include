@@ -1,6 +1,7 @@
-/**
+ /**
  * Concrete class for standardisation methods
  *
+ * @class      Classification (Classification)
  */
 function StandardiseMethod() {
     //Call parent constructor explicitly

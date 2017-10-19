@@ -1,6 +1,7 @@
-/**
+ /**
  * Quantile classification method concrete class
  *
+ * @class      Quantile (Quantile)
  */
 
 function Quantile() {

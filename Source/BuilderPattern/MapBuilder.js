@@ -1,6 +1,7 @@
-/**
+    /**
  * Abstact class for the Builder method 
  *
+ * @class      Classification (Classification)
  */
 function MapBuilder() {
 	//verander

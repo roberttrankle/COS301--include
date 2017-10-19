@@ -1,6 +1,7 @@
-/**
- * Abstact class for the strategy method
+   /**
+ * Abstact class for the strategy method(classification)
  *
+ * @class      Classification (Classification)
  */
 var Classification = function() {
     if (this.constructor === Classification) {

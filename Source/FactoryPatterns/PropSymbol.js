@@ -1,4 +1,9 @@
-//Concrete Creator
+/**
+ * A class to create proportional symbol maps.
+ *
+ * @class      PropSymbolCreator (PropSymbolCreator)
+ */
+
 function PropSymbolCreator() {
 };
 
@@ -30,8 +35,6 @@ PropSymbolCreator.prototype.createMap = function(map, vectorSource, wardsSource,
 
         return;
     }
-
-    PropSymbolDesign();
 
     // http://thematicmapping.org/playground/javascript/openlayers_propsymbols_geojson.js 
     var symbol = new ol.geom.Geometry('circle', 10, 1312978855);
@@ -221,9 +224,14 @@ PropSymbolCreator.prototype.createMap = function(map, vectorSource, wardsSource,
     }
 };
 
-function PropSymbolDesign(map) {
+/**
+ * A concrete product of a proportional symbol map creator.
+ *
+ * @class      defaultMapDesign
+ */
+function PropSymbolConcrete(map) {
     this.map = map;
 };
 
-// PropSymbolDesign.prototype = Object.create(MapDesign.prototype);
-// PropSymbolDesign.prototype.constructor = PropSymbolDesign;
+PropSymbolConcrete.prototype = Object.create(MapProduct.prototype);
+PropSymbolConcrete.prototype.constructor = PropSymbolConcrete;

@@ -18,6 +18,7 @@
   
   <script src="js/map.js"></script>
   <script src="js/index.js"></script>
+  <script src="FactoryPatterns/MapProduct.js"></script>
   <script src="FactoryPatterns/MapCreator.js"></script>
   <script src="FactoryPatterns/MapDesign.js"></script>
   <script src="FactoryPatterns/defaultMap.js"></script>
@@ -128,7 +129,7 @@
             </select>
           </div>
 
-          <input type="button" id = "next1" name = "next" class = "next action-button" value="Next" onclick="loadWizardMaps(0); setMapTitle(); setAttrValue()"; disabled="true" />
+          <input type="button" id = "next1" name = "next" class = "next action-button" value="Next" onclick="loadWizardMaps(0); setMapTitle(); setAttrValue()"; />
         </fieldset>
 
          <fieldset>
@@ -174,7 +175,7 @@
         <fieldset>
 
           <div id="standardization_select">
-            <h2 class = "fs-title" align = "left">Specify the Standardization Method to be used</h2>
+            <h2 class = "fs-title" align = "left">Specify the Standardization Method to be used :</h2>
             <select id="standardization" onchange="setStdMethod()">
               <option value="area">Area</option>
               <option value="density">Density</option>
@@ -221,7 +222,7 @@
           </div>
 
           <div id = "numClasses_select">
-            <h2 class = "fs-title" align = "left">Specify the Number of Classes</h2>
+            <h2 class = "fs-title" align = "left">Specify the Number of Classes (Default classes are 5 & 7)</h2>
             <input id="numClasses" type = "number" min = "1" name = "numClasses" placeholder = "Number of Classes" value="3"; />
           </div>
 
@@ -297,7 +298,7 @@
           </div>
       </div>
 
-          <input type="submit" id="generateMap" name="submit" class="submit action-button" value="Generate Map" onclick="loadFinalMap();closeNav(); showNav2(); showMetaData(); generateBuilderAndFinalMap();" disabled="true" />
+          <input type="submit" id="generateMap" name="submit" class="submit action-button" value="Generate Map" onclick="loadFinalMap();closeNav(); showNav2(); showMetaData();" disabled="true" />
     
           <br>
         </fieldset>

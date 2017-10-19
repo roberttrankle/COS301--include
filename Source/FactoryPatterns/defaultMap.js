@@ -1,4 +1,9 @@
-//Concrete Creator
+/**
+ * A class to create default maps.
+ *
+ * @class      MapCreator (defaultMapCreator)
+ */
+
 function defaultMapCreator() {
 };
 
@@ -15,8 +20,14 @@ defaultMapCreator.prototype.createMap = function(map) {
     map.addLayer(this.tileLayer);
 };
 
-function defaultMapDesign() {
+/**
+ * A concrete product of a default map creator.
+ *
+ * @class      defaultMapDesign
+ */
+function defaultMapDesign(map) {
+	this.map = map;
 };
 
-defaultMapDesign.prototype = Object.create(MapDesign.prototype);
+defaultMapDesign.prototype = Object.create(MapProduct.prototype);
 defaultMapDesign.prototype.constructor = defaultMapDesign;

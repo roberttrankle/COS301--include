@@ -409,30 +409,48 @@ $('.images_list3 li').click(function() {
     var currentID = $(this).attr('id');
     if (currentID == 'cc1') {
         sessionStorage.setItem('classificationAndClassSelected', "0");
+        sessionStorage.setItem('finalMapNumberOfClasses', sessionStorage.getItem('numClasses'));
+        sessionStorage.setItem('classification', "EQUALINTERVAL");
     }
     if (currentID == 'cc2') {
         sessionStorage.setItem('classificationAndClassSelected', "1");
+        sessionStorage.setItem('finalMapNumberOfClasses', "5");
+        sessionStorage.setItem('classification', "EQUALINTERVAL");
     }
     if (currentID == 'cc3') {
         sessionStorage.setItem('classificationAndClassSelected', "2");
+        sessionStorage.setItem('finalMapNumberOfClasses', "7");
+        sessionStorage.setItem('classification', "EQUALINTERVAL");
     }
     if (currentID == 'cc4') {
         sessionStorage.setItem('classificationAndClassSelected', "3");
+        sessionStorage.setItem('finalMapNumberOfClasses', sessionStorage.getItem('numClasses'));
+        sessionStorage.setItem('classification', "QUANTILE");
     }
     if (currentID == 'cc5') {
         sessionStorage.setItem('classificationAndClassSelected', "4");
+        sessionStorage.setItem('finalMapNumberOfClasses', "5");
+        sessionStorage.setItem('classification', "QUANTILE");
     }
     if (currentID == 'cc6') {
         sessionStorage.setItem('classificationAndClassSelected', "5");
+        sessionStorage.setItem('finalMapNumberOfClasses', "7");
+        sessionStorage.setItem('classification', "QUANTILE");
     }
     if (currentID == 'cc7') {
         sessionStorage.setItem('classificationAndClassSelected', "6");
-    }8
+        sessionStorage.setItem('finalMapNumberOfClasses', sessionStorage.getItem('numClasses'));
+        sessionStorage.setItem('classification', "NATURALBREAKS");
+    }
     if (currentID == 'cc8') {
         sessionStorage.setItem('classificationAndClassSelected', "7");
+        sessionStorage.setItem('finalMapNumberOfClasses', "5");
+        sessionStorage.setItem('classification', "NATURALBREAKS");
     }
     if (currentID == 'cc9') {
         sessionStorage.setItem('classificationAndClassSelected', "8");
+        sessionStorage.setItem('finalMapNumberOfClasses', "7");
+        sessionStorage.setItem('classification', "NATURALBREAKS");
     }
     var clicked = $(this).attr('id');
     $("#" + clicked).removeClass("hidden").siblings().addClass("hidden");
